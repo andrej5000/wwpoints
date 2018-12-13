@@ -7,12 +7,6 @@ class ProductRow extends React.Component {
     }
 
     render() {
-        /*
-        const name = this.props.stocked
-                     ? this.props.name
-                     : <span style={{color: 'red'}}>{this.props.name}</span>
-        ;
-        */
 
         return (
             <tr>

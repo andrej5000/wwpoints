@@ -16,25 +16,30 @@ class FilterableProductTable extends React.Component {
         super(props);
 
         this.onHandleSearch = this.onHandleSearch.bind(this);
-        this.onToggleProductStock = this.onToggleProductStock.bind(this);
+        this.onToggleProductsWithZeroPoints = this.onToggleProductsWithZeroPoints.bind(this);
 
         this.state = {
-            isHideUnstocked: false,
+            isHideProductsWithZeroPoints: false,
             searchTerm: ''
         };
     }
 
-    onToggleProductStock(event) {
+
+    onToggleProductsWithZeroPoints(event) {
+
         this.setState({
-            isHideUnstocked: event.target.checked
+            isHideProductsWithZeroPoints: event.target.checked
         });
     }
 
+
     onHandleSearch(event) {
+
         this.setState({
             searchTerm: event.target.value
         });
     }
+
 
     render() {
 
@@ -47,12 +52,12 @@ class FilterableProductTable extends React.Component {
                     <ErrorBoundary>
                         <SearchBar
                             onHandleSearch={this.onHandleSearch}
-                            onToggleProductStock={this.onToggleProductStock}
+                            onToggleProductsWithZeroPoints={this.onToggleProductsWithZeroPoints}
                         />
                     </ErrorBoundary>
 
                     <ProductTable
-                        isHideUnstocked={this.state.isHideUnstocked}
+                        isHideProductsWithZeroPoints={this.state.isHideProductsWithZeroPoints}
                         products={WWPOINTS}
                         searchTerm={this.state.searchTerm}
                     />
@@ -64,6 +69,8 @@ class FilterableProductTable extends React.Component {
     }
 }
 
+
+/*
 const PRODUCTS = [
     {category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football'},
     {category: 'Sporting Goods', price: '$9.99', stocked: true, name: 'Baseball'},
@@ -73,6 +80,8 @@ const PRODUCTS = [
     {category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7'},
     {category: 'Videos', price: '$19.99', stocked: true, name: 'Avengers: Infinity War'}
 ];
+*/
+
 
 const WWPOINTS = [
     {"category": "Brot & Brötchen", "name": "Brot, jede Sorte, 1 Scheibe", "points": "2"},
@@ -645,6 +654,8 @@ const WWPOINTS = [
     ***************************************************************************************************
 */
 
+
+/*
 class BlurExample extends React.Component {
     constructor(props) {
         super(props);
@@ -706,6 +717,7 @@ class BlurExample extends React.Component {
         );
     }
 }
+*/
 
 
 export default FilterableProductTable;

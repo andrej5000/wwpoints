@@ -33,10 +33,10 @@ class SearchBar extends React.Component {
                     >
 
                         <input
-                            onChange={this.props.onToggleProductStock}
+                            onChange={this.props.onToggleProductsWithZeroPoints}
                             type='checkbox'
                         />
-                        Only show food with 0 points!
+                        Only show products with 0 points!
 
                     </label>
                 </fieldset>

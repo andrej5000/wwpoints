@@ -12,7 +12,7 @@ class ProductTable extends React.Component {
         let productList = this.props.products;
         let searchTerm = this.props.searchTerm.toLocaleLowerCase();//.toString();
 
-        let products = this.props.isHideUnstocked
+        let products = this.props.isHideProductsWithZeroPoints
                        ? productList.filter((product) => Number(product.points) === 0)
                        : productList;
 
@@ -36,7 +36,6 @@ class ProductTable extends React.Component {
                     key={index.toString()}
                     name={product.name}
                     points={product.points}
-                    stocked={product.stocked}
                 />
             );
 
