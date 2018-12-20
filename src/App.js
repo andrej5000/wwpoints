@@ -156,7 +156,7 @@ class TicTacToe extends React.Component {
         //...and only if 'value' of found data is 'false' (as initially set)...
         if (!obj['value']) {
 
-            // ...we assign player number to value and state.
+            // ...we assign player number to value in state's raster data.
             obj['value'] = player;
 
             // Now we define the next player...
