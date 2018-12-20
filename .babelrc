@@ -1,0 +1,21 @@
+{
+    "plugins": [
+        [
+            "transform-runtime",
+            {
+                "helpers": true,
+                "moduleName": "babel-runtime",
+                "polyfill": true,
+                "regenerator": true
+            }
+        ],
+        "transform-object-rest-spread",
+        "transform-function-bind",
+        "react-hot-loader/babel"
+    ],
+    "presets": [
+        "react",
+        "stage-0",
+        "es2015"
+    ]
+}

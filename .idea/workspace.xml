@@ -2,10 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9ab742eb-5a11-40f0-a9d8-d32d83a35727" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/RenderProps.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/WWPoints.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.babelrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/CellComponent/CellComponent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/CellComponent/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ConfigComponent/ConfigComponent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ConfigComponent/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/GameRaster/GameRaster.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/GameRaster/GameRaster.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/GameRaster/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/dataUtils.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/ErrorBoundary/ErrorBoundaryComponent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/ErrorBoundary/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/ProductTable/ProductCategoryRow/ProductCategoryRowComponent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/ProductTable/ProductCategoryRow/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/ProductTable/ProductRow/ProductRowComponent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/ProductTable/ProductRow/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/ProductTable/ProductTableComponent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/ProductTable/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/SearchBar/SearchBarComponent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Components/SearchBar/index.js" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,9 +49,10 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="HTML" value="8" />
-          <entry key="JSON" value="11" />
-          <entry key="JavaScript" value="36" />
+          <entry key="CSS" value="2" />
+          <entry key="HTML" value="9" />
+          <entry key="JSON" value="14" />
+          <entry key="JavaScript" value="46" />
           <entry key="Markdown" value="3" />
           <entry key="PLAIN_TEXT" value="1" />
           <entry key="TypeScript" value="2" />
@@ -44,9 +66,10 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
+          <entry key="CSS" value="699" />
           <entry key="HTML" value="145" />
-          <entry key="JSON" value="104" />
-          <entry key="JavaScript" value="5111" />
+          <entry key="JSON" value="193" />
+          <entry key="JavaScript" value="9477" />
           <entry key="PLAIN_TEXT" value="14" />
         </counts>
       </usages-collector>
@@ -62,31 +85,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
+            <state relative-caret-position="378">
+              <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/WWPoints.js">
+        <entry file="file://$PROJECT_DIR$/.babelrc">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1746">
-              <caret line="722" selection-start-line="722" selection-end-line="722" selection-end-column="38" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-                <element signature="e#2398#53860#0" />
-                <element signature="e#53977#55890#0" />
-              </folding>
+            <state relative-caret-position="180">
+              <caret line="10" column="10" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/RenderProps.js">
+        <entry file="file://$PROJECT_DIR$/src/App.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="9" column="16" lean-forward="true" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
+            <state relative-caret-position="738">
+              <caret line="41" column="14" lean-forward="true" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -94,26 +112,25 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="17" column="25" lean-forward="true" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
+            <state relative-caret-position="29">
+              <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+                <element signature="n#!!block;n#setStateValue#0;n#TicTacToe#0" />
+                <element signature="n#!!block;n#onCreateGame#0;n#TicTacToe#0" />
+                <element signature="n#!!block;n#createGameFieldData#0;n#TicTacToe#0" />
+                <element signature="n#!!block;n#toggledConfigWindow#0;n#TicTacToe#0" />
+                <element signature="n#!!block;n#renderGameRaster#0;n#TicTacToe#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Components/SearchBar/SearchBarComponent.js">
+        <entry file="file://$PROJECT_DIR$/src/components/GameRaster/GameRaster.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="21" column="50" selection-start-line="21" selection-start-column="50" selection-end-line="21" selection-end-column="50" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Components/ProductTable/ProductTableComponent.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="576">
-              <caret line="32" selection-start-line="32" selection-end-line="32" />
+            <state relative-caret-position="467">
+              <caret line="52" column="18" selection-start-line="52" selection-start-column="18" selection-end-line="52" selection-end-column="18" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -122,10 +139,13 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Components/SearchBar/index.js">
+        <entry file="file://$PROJECT_DIR$/src/components/CellComponent/CellComponent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="3" column="27" selection-start-line="3" selection-start-column="27" selection-end-line="3" selection-end-column="27" />
+            <state relative-caret-position="90">
+              <caret line="5" column="45" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -144,13 +164,16 @@
       <find>\s</find>
       <find>;</find>
       <find>t</find>
-      <find>^</find>
       <find>$</find>
       <find>\t</find>
       <find>points</find>
       <find>alles</find>
       <find>,5&quot;</find>
       <find>tunf</find>
+      <find>console</find>
+      <find>const props</find>
+      <find>'</find>
+      <find>^</find>
     </findStrings>
     <replaceStrings>
       <replace>{category: &quot;Süßigkeiten&quot;, name: &quot;</replace>
@@ -180,7 +203,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/tut1.js" />
         <option value="$PROJECT_DIR$/src/temp.js" />
         <option value="$PROJECT_DIR$/src/tut1.html" />
@@ -200,6 +222,16 @@
         <option value="$PROJECT_DIR$/src/Components/ProductTable/ProductTableComponent.js" />
         <option value="$PROJECT_DIR$/src/Components/ProductTable/ProductRow/ProductRowComponent.js" />
         <option value="$PROJECT_DIR$/src/WWPoints.js" />
+        <option value="$PROJECT_DIR$/src/components/CellComponent/index.js" />
+        <option value="$PROJECT_DIR$/src/components/GameRaster/index.js" />
+        <option value="$PROJECT_DIR$/src/components/GameRaster/GameRaster.css" />
+        <option value="$PROJECT_DIR$/src/components/ConfigComponent/ConfigComponent.js" />
+        <option value="$PROJECT_DIR$/.babelrc" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/src/App.css" />
+        <option value="$PROJECT_DIR$/src/components/GameRaster/GameRaster.js" />
+        <option value="$PROJECT_DIR$/src/components/CellComponent/CellComponent.js" />
+        <option value="$PROJECT_DIR$/src/utils/dataUtils.js" />
         <option value="$PROJECT_DIR$/src/App.js" />
       </list>
     </option>
@@ -207,6 +239,12 @@
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
     <package-json value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
   </component>
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
@@ -224,10 +262,43 @@
     <servers />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-2408" />
-    <option name="y" value="136" />
-    <option name="width" value="1817" />
+    <option name="x" value="-2406" />
+    <option name="y" value="135" />
+    <option name="width" value="1800" />
     <option name="height" value="1221" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State />
+          <State>
+            <id>Android</id>
+          </State>
+          <State>
+            <id>DOM issuesJavaScript</id>
+          </State>
+          <State>
+            <id>GeneralJavaScript</id>
+          </State>
+          <State>
+            <id>JavaScript</id>
+          </State>
+          <State>
+            <id>LintAndroid</id>
+          </State>
+          <State>
+            <id>Node.jsJavaScript</id>
+          </State>
+          <State>
+            <id>PerformanceLintAndroid</id>
+          </State>
+          <State>
+            <id>XPath</id>
+          </State>
+        </expanded-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -248,20 +319,45 @@
             <path>
               <item name="react-tutorial" type="b2602c69:ProjectViewProjectNode" />
               <item name="react-tutorial" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-tutorial" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-tutorial" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="react-tutorial" type="b2602c69:ProjectViewProjectNode" />
               <item name="react-tutorial" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Components" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="react-tutorial" type="b2602c69:ProjectViewProjectNode" />
               <item name="react-tutorial" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Components" type="462c0819:PsiDirectoryNode" />
-              <item name="SearchBar" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="CellComponent" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-tutorial" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-tutorial" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="ConfigComponent" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-tutorial" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-tutorial" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="GameRaster" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-tutorial" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-tutorial" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -274,7 +370,8 @@
     <property name="SearchEverywhereHistoryKey" value="json&#9;FILE&#9;file:///Users/abecker/dev/react-tutorial/test.json" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545230613968" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545322134137" />
+    <property name="javascript.nodejs.core.library.configured.version" value="11.4.0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../adidas" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -285,10 +382,11 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.3049482" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.JavaScript" />
+    <property name="settings.editor.selected.configurable" value="settings.nodejs" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/GameRaster" />
       <recent name="$PROJECT_DIR$/src/Components/ProductTable" />
     </key>
   </component>
@@ -365,11 +463,18 @@
       <option name="project" value="LOCAL" />
       <updated>1544717476293</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="temp">
+      <created>1545251853273</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1545251853273</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33724000" />
+    <option name="totallyTimeSpent" value="57086000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -381,9 +486,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-2408" y="136" width="1817" height="1221" extended-state="0" />
+    <frame x="-2406" y="135" width="1800" height="1221" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19380282" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19567691" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -393,12 +499,12 @@
       <window_info id="npm" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4997339" weight="0.21632996" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4997339" weight="0.21546961" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3298611" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="7" visible="true" weight="0.33658105" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.52394104" />
       <window_info anchor="bottom" id="Log Viewer" order="8" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.26129317" />
       <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
@@ -425,7 +531,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed" />
+    <MESSAGE value="temp" />
+    <option name="LAST_COMMIT_MESSAGE" value="temp" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/node_modules/react-scripts/scripts/start.js">
@@ -443,13 +550,6 @@
     <entry file="file://$PROJECT_DIR$/src/serviceWorker.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1000" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="27" column="24" lean-forward="true" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="24" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/index.js">
@@ -493,14 +593,14 @@
     <entry file="file://$PROJECT_DIR$/public/manifest.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/ProductTable/ProductCategoryRow/index.js">
+    <entry file="file://$PROJECT_DIR$/src/components/ProductTable/ProductCategoryRow/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
           <caret line="2" column="43" lean-forward="true" selection-start-line="2" selection-start-column="43" selection-end-line="2" selection-end-column="43" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/ProductTable/ProductRow/index.js">
+    <entry file="file://$PROJECT_DIR$/src/components/ProductTable/ProductRow/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
           <caret line="2" column="34" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
@@ -529,7 +629,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/ErrorBoundary/index.js">
+    <entry file="file://$PROJECT_DIR$/src/components/ErrorBoundary/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
           <caret line="2" column="38" selection-start-line="2" selection-start-column="38" selection-end-line="2" selection-end-column="38" />
@@ -543,7 +643,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/ErrorBoundary/ErrorBoundaryComponent.js">
+    <entry file="file://$PROJECT_DIR$/src/components/ErrorBoundary/ErrorBoundaryComponent.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="720">
           <caret line="40" column="14" lean-forward="true" selection-start-line="40" selection-start-column="14" selection-end-line="40" selection-end-column="14" />
@@ -557,14 +657,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/ProductTable/ProductCategoryRow/ProductCategoryRowComponent.js">
+    <entry file="file://$PROJECT_DIR$/src/components/ProductTable/ProductCategoryRow/ProductCategoryRowComponent.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
           <caret line="3" column="6" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/ProductTable/ProductRow/ProductRowComponent.js">
+    <entry file="file://$PROJECT_DIR$/src/components/ProductTable/ProductRow/ProductRowComponent.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
@@ -578,38 +678,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/ProductTable/index.js">
+    <entry file="file://$PROJECT_DIR$/src/components/ProductTable/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="52" lean-forward="true" selection-end-line="2" selection-end-column="37" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/SearchBar/SearchBarComponent.js">
+    <entry file="file://$PROJECT_DIR$/src/components/SearchBar/SearchBarComponent.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
           <caret line="21" column="50" selection-start-line="21" selection-start-column="50" selection-end-line="21" selection-end-column="50" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/ProductTable/ProductTableComponent.js">
+    <entry file="file://$PROJECT_DIR$/src/components/ProductTable/ProductTableComponent.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="576">
           <caret line="32" selection-start-line="32" selection-end-line="32" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Components/SearchBar/index.js">
+    <entry file="file://$PROJECT_DIR$/src/components/SearchBar/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
           <caret line="3" column="27" selection-start-line="3" selection-start-column="27" selection-end-line="3" selection-end-column="27" />
@@ -652,10 +742,120 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/webpack.config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/environmentUtils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/CellComponent/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="29" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/GameRaster/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="36" selection-start-column="36" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/GameRaster/GameRaster.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/ConfigComponent/ConfigComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="6" column="24" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/babel-preset-2017/package.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.babelrc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="10" column="10" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="738">
+          <caret line="41" column="14" lean-forward="true" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/CellComponent/CellComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="45" selection-start-line="5" selection-start-column="45" selection-end-line="5" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/GameRaster/GameRaster.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="467">
+          <caret line="52" column="18" selection-start-line="52" selection-start-column="18" selection-end-line="52" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/dataUtils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="61" selection-start-line="3" selection-start-column="61" selection-end-line="3" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" column="25" lean-forward="true" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
+        <state relative-caret-position="29">
+          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+            <element signature="n#!!block;n#setStateValue#0;n#TicTacToe#0" />
+            <element signature="n#!!block;n#onCreateGame#0;n#TicTacToe#0" />
+            <element signature="n#!!block;n#createGameFieldData#0;n#TicTacToe#0" />
+            <element signature="n#!!block;n#toggledConfigWindow#0;n#TicTacToe#0" />
+            <element signature="n#!!block;n#renderGameRaster#0;n#TicTacToe#0" />
+          </folding>
         </state>
       </provider>
     </entry>
