@@ -43,6 +43,7 @@ class ConfigComponent extends React.Component {
                         <td>
                             <input id={'fieldHeight'}
                                    onChange={() => onSetConfigValue(fieldHeightName, Number(this.inputWidth.value))}
+                                   onFocus={() => this.inputWidth.setSelectionRange(0, this.inputWidth.value.length)} // auto-select mobile Safari safe
                                    ref={(inputWidth) => this.inputWidth = inputWidth}
                                    value={fieldHeightValue}
                             />
@@ -57,6 +58,7 @@ class ConfigComponent extends React.Component {
                         <td>
                             <input id={'fieldWidth'}
                                    onChange={() => onSetConfigValue(fieldWidthName, Number(this.inputHeight.value))}
+                                   onFocus={() => this.inputHeight.setSelectionRange(0, this.inputHeight.value.length)} // auto-select mobile Safari safe
                                    ref={(inputHeight) => this.inputHeight = inputHeight}
                                    value={fieldWidthValue}
                             />

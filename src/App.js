@@ -135,6 +135,7 @@ class TicTacToe extends React.Component {
             return element.name === activePlayer
         })['symbol'];
 
+
         return (
             <GameRaster activePlayer={activePlayer}
                         activePlayerSymbol={activePlayerSymbol}
