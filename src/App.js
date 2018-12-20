@@ -147,24 +147,26 @@ class TicTacToe extends React.Component {
 
     onCellClickHandler(x, y, player) {
 
-        //Find clicked cell data in data array...
+        //Find clicked cell data in raster data...
         const obj = this.state.rasterData.find((element) => {
 
             return element.x === x && element.y === y
         });
 
-        //...and only if value is 'false' as set in initial state, assign player number to value and state.
+        //...and only if 'value' of found data is 'false' (as initially set)...
         if (!obj['value']) {
 
+            // ...we assign player number to value and state.
             obj['value'] = player;
 
+            // Now we define the next player...
             const nextPlayer = (player + 1) > this.state.players.length ? 1 : (player + 1);
 
+            // ...and persist that into state.
             this.setStateValue('activePlayer', nextPlayer);
         }
     }
 }
-
 
 
 export default TicTacToe;
