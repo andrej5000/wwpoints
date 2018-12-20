@@ -1,9 +1,19 @@
 
+body {
+    padding: 20px;
+}
+
+h3 {
+    margin: 0 0 20px 0;
+}
+
+.gameField {
+    margin-top: 30px;
+}
 
 .gameRaster {
     border: 1px solid #000;
     border-collapse: collapse;
-    margin: 50px 0 0 20px;
     user-select: none;
 }
         .gameRaster .gameCell {
@@ -21,22 +31,10 @@
                 .gameRaster .gameCell:hover {
                     background: #eee;
                 }
-                .gameRaster .gameCell.player1:hover,
-                .gameRaster .gameCell.player2:hover {
+                .gameRaster .gameCell.active,
+                .gameRaster .gameCell.active:hover {
                     background: #fff;
                     cursor: auto;
-                }
-        .gameRaster .gameCell.player1:before,
-        .gameRaster .gameCell.player2:before {
-            content: 'X';
-            height: 40px;
-            left: 10px;
-            position: absolute;
-            top: 10px;
-            width: 40px;
-        }
-                .gameRaster .gameCell.player2:before {
-                    content: 'O';
                 }
 
 .hint:before {

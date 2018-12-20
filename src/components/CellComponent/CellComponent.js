@@ -1,17 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {isExistent} from '../../utils/dataUtils';
 
 
 class CellComponent extends React.Component {
 
+    constructor(props) {
+        super(props);
+
+        this.onCellClick = this.onCellClick.bind(this);
+
+        this.state = {
+            activePlayerSymbol: ''
+        };
+    }
+
+
     static propTypes = {
-        cellValue: PropTypes.oneOfType(
-            [
-                PropTypes.bool,
-                PropTypes.number
-            ]
-        ).isRequired,
+        activePlayerSymbol: PropTypes.string.isRequired,
+        cellValue: PropTypes.oneOfType([
+            PropTypes.bool,
+            PropTypes.number
+        ]).isRequired,
         onCellClickHandler: PropTypes.func.isRequired
     };
 
@@ -20,9 +29,9 @@ class CellComponent extends React.Component {
 
         return (
             <td className={this.setCssClasses()}
-                onClick={this.props.onCellClickHandler}
+                onClick={this.onCellClick}
             >
-                &nbsp;
+                {this.state.activePlayerSymbol}
             </td>
         );
     }
@@ -30,15 +39,27 @@ class CellComponent extends React.Component {
 
     setCssClasses() {
 
-        const {cellValue} = this.props;
-
         let cssClasses = 'gameCell';
 
-        if (isExistent(cellValue)) {
-            cssClasses += ' player' + cellValue;
+        if (this.props.cellValue) {
+            cssClasses += ' active';
         }
 
         return cssClasses;
+    }
+
+
+    onCellClick() {
+
+        // We need to also store the player's symbol locally. Learned it the hard way ...
+        if (this.state.activePlayerSymbol === '') {
+
+            this.setState({
+                activePlayerSymbol: this.props.activePlayerSymbol
+            });
+        }
+
+        this.props.onCellClickHandler();
     }
 }
 

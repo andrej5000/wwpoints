@@ -10,7 +10,8 @@ class GameRaster extends React.Component {
 
     static propTypes = {
         activePlayer: PropTypes.number.isRequired,
-        initialRasterData: PropTypes.array.isRequired,
+        activePlayerSymbol: PropTypes.string.isRequired,
+        rasterData: PropTypes.array.isRequired,
         onCellClickHandler: PropTypes.func.isRequired
     };
 
@@ -18,13 +19,18 @@ class GameRaster extends React.Component {
     render() {
 
         return (
-            <table className={'gameRaster'}>
-                <tbody>
+            <div className={'gameField'}>
 
-                    {this.renderGameRaster()}
+                <h3>Your turn, player {this.props.activePlayerSymbol}</h3>
 
-                </tbody>
-            </table>
+                <table className={'gameRaster'}>
+                    <tbody>
+
+                        {this.renderGameRaster()}
+
+                    </tbody>
+                </table>
+            </div>
         );
     }
 
@@ -33,15 +39,16 @@ class GameRaster extends React.Component {
 
         const {
             activePlayer,
-            initialRasterData,
+            activePlayerSymbol,
+            rasterData,
             onCellClickHandler
         } = this.props;
 
-        let count = -1; // make sure value starts with zero after iterations
+        let count = -1; // make sure cell counter value starts with zero after for-loops
         let gameRaster = [];
 
-        let rasterHeight = getMaxValueFromData(initialRasterData, 'y');
-        let rasterWidth = getMaxValueFromData(initialRasterData, 'x');
+        const rasterHeight = getMaxValueFromData(rasterData, 'y');
+        const rasterWidth = getMaxValueFromData(rasterData, 'x');
 
         for (let i = 0; i <= rasterHeight; i++){
 
@@ -50,15 +57,14 @@ class GameRaster extends React.Component {
             for (let j = 0; j <= rasterWidth; j++){
                 count++;
 
-                //let cellId = `cell_${initialRasterData[count].x}-${initialRasterData[count].y}`;
-                let cellX = initialRasterData[count].x;
-                let cellY = initialRasterData[count].y;
-                let cellValue = initialRasterData[count].value;
-
-                //console.log('COUNT: ', count, cellId);
+                let cellX = rasterData[count].x;
+                let cellY = rasterData[count].y;
+                let cellValue = rasterData[count].value;
 
                 cells.push(
-                    <CellComponent cellValue={cellValue}
+                    <CellComponent activePlayerSymbol={activePlayerSymbol}
+                                   cellValue={cellValue}
+                                   number={count}
                                    key={count}
                                    onCellClickHandler={() => onCellClickHandler(cellX, cellY, activePlayer)}
                     />

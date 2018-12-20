@@ -23,6 +23,11 @@ class TicTacToe extends React.Component {
             fieldWidth: 3,
             initialCellValue: false,
             isConfigWindowVisible: true,
+            players: [
+                {name: 1, symbol: 'X'},
+                {name: 2, symbol: 'O'},
+                {name: 3, symbol: 'M'}
+            ],
             rasterData: []
         };
     }
@@ -48,7 +53,6 @@ class TicTacToe extends React.Component {
                                  onRenderGameField={this.onCreateGame}
                 />
 
-
                 {this.toggledConfigWindow()}
 
 
@@ -72,9 +76,7 @@ class TicTacToe extends React.Component {
 
         this.createGameFieldData();
 
-        this.setState({
-            isConfigWindowVisible: false
-        });
+        this.setStateValue('isConfigWindowVisible', false);
     }
 
 
@@ -116,13 +118,27 @@ class TicTacToe extends React.Component {
 
     renderGameRaster() {
 
-        if (this.state.isConfigWindowVisible) {
+        const {
+            activePlayer,
+            isConfigWindowVisible,
+            players,
+            rasterData
+        } = this.state;
+
+
+        if (isConfigWindowVisible) {
             return null;
         }
 
+        const activePlayerSymbol = players.find((element) => {
+
+            return element.name === activePlayer
+        })['symbol'];
+
         return (
-            <GameRaster activePlayer={this.state.activePlayer}
-                        initialRasterData={this.state.rasterData}
+            <GameRaster activePlayer={activePlayer}
+                        activePlayerSymbol={activePlayerSymbol}
+                        rasterData={rasterData}
                         onCellClickHandler={this.onCellClickHandler}
             />
         );
@@ -131,19 +147,20 @@ class TicTacToe extends React.Component {
 
     onCellClickHandler(x, y, player) {
 
-        this.setState({
-            activePlayer: player === 1 ? 2 : 1
-        });
-
         //Find clicked cell data in data array...
-        let obj = this.state.rasterData.find((element) => {
+        const obj = this.state.rasterData.find((element) => {
 
             return element.x === x && element.y === y
         });
 
-        //...and only if initial value is false, assign player number to value.
+        //...and only if value is 'false' as set in initial state, assign player number to value and state.
         if (!obj['value']) {
+
             obj['value'] = player;
+
+            const nextPlayer = (player + 1) > this.state.players.length ? 1 : (player + 1);
+
+            this.setStateValue('activePlayer', nextPlayer);
         }
     }
 }
