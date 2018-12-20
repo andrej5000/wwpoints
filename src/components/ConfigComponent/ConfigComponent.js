@@ -14,6 +14,14 @@ class ConfigComponent extends React.Component {
         onRenderGameField: PropTypes.func.isRequired
     };
 
+
+    constructor(props) {
+        super(props);
+
+        this.onClickHandler = this.onClickHandler.bind(this);
+    }
+
+
     render() {
 
         const{
@@ -23,13 +31,13 @@ class ConfigComponent extends React.Component {
             fieldWidthValue,
             isConfigWindowVisible,
             onSetConfigValue,
-            onRenderGameField
         } = this.props;
 
 
         if (!isConfigWindowVisible) {
             return null;
         }
+
 
         return (
             <table>
@@ -66,7 +74,7 @@ class ConfigComponent extends React.Component {
                     </tr>
                     <tr>
                         <td colSpan={2}>
-                            <button onClick={onRenderGameField}>
+                            <button onClick={this.onClickHandler}>
                                 Render TicTacToe field
                             </button>
                         </td>
@@ -75,6 +83,14 @@ class ConfigComponent extends React.Component {
             </table>
         );
     };
+
+
+    onClickHandler() {
+
+        this.props.onSetConfigValue('isGameFinished', false);
+        this.props.onRenderGameField()
+    }
 }
+
 
 export default ConfigComponent;

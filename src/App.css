@@ -9,7 +9,11 @@ h3 {
 
 .gameField {
     margin-top: 30px;
+    padding: 20px;
 }
+        .gameField.finished {
+            background: lightgreen;
+        }
 
 .gameRaster {
     border: 1px solid #000;

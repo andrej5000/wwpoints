@@ -11,6 +11,7 @@ class GameRaster extends React.Component {
     static propTypes = {
         activePlayer: PropTypes.number.isRequired,
         activePlayerSymbol: PropTypes.string.isRequired,
+        isGameFinished: PropTypes.bool.isRequired,
         rasterData: PropTypes.array.isRequired,
         onCellClickHandler: PropTypes.func.isRequired
     };
@@ -19,7 +20,7 @@ class GameRaster extends React.Component {
     render() {
 
         return (
-            <div className={'gameField'}>
+            <div className={this.setCssClasses()}>
 
                 <h3>Your turn, player {this.props.activePlayerSymbol}</h3>
 
@@ -79,6 +80,18 @@ class GameRaster extends React.Component {
         }
 
         return gameRaster;
+    }
+
+
+    setCssClasses() {
+
+        let cssClasses = 'gameField';
+
+        if (this.props.isGameFinished) {
+            cssClasses += ' finished';
+        }
+
+        return cssClasses;
     }
 }
 

@@ -23,6 +23,7 @@ class TicTacToe extends React.Component {
             fieldWidth: 3,
             initialCellValue: false,
             isConfigWindowVisible: true,
+            isGameFinished: false,
             players: [
                 {name: 1, symbol: 'X'},
                 {name: 2, symbol: 'O'},
@@ -139,6 +140,7 @@ class TicTacToe extends React.Component {
         return (
             <GameRaster activePlayer={activePlayer}
                         activePlayerSymbol={activePlayerSymbol}
+                        isGameFinished={this.state.isGameFinished}
                         rasterData={rasterData}
                         onCellClickHandler={this.onCellClickHandler}
             />
@@ -165,6 +167,15 @@ class TicTacToe extends React.Component {
 
             // ...and persist that into state.
             this.setStateValue('activePlayer', nextPlayer);
+
+            const remainingCells = this.state.rasterData.filter((element) => {
+
+                return element.value === false
+            });
+
+            if (remainingCells.length === 0) {
+                this.setStateValue('isGameFinished', true);
+            }
         }
     }
 }
