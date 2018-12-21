@@ -3,19 +3,11 @@ import React from 'react';
 import ConfigComponent from './components/ConfigComponent';
 import GameRaster from './components/GameRaster';
 
-import './App.css';
-
 
 class TicTacToe extends React.Component {
 
     constructor(props) {
         super(props);
-
-        this.createGameRasterData = this.createGameRasterData.bind(this);
-        this.setStateValue = this.setStateValue.bind(this);
-        this.onCellClickHandler = this.onCellClickHandler.bind(this);
-        this.onCreateGame = this.onCreateGame.bind(this);
-        this.toggledConfigWindow = this.toggledConfigWindow.bind(this);
 
         this.state = {
             activePlayer: 1, // min|max values are 1|3, equivalent to `this.state.players[i].name`
@@ -50,8 +42,9 @@ class TicTacToe extends React.Component {
                                  fieldWidthName={'fieldWidth'}
                                  fieldWidthValue={Number(fieldWidth)}
                                  isConfigWindowVisible={isConfigWindowVisible}
-                                 onSetConfigValue={this.setStateValue}
-                                 onRenderGameField={this.onCreateGame}
+                                 onGetConfigValue={::this.getStateValue}
+                                 onSetConfigValue={::this.setStateValue}
+                                 onRenderGameField={::this.onCreateGame}
                 />
 
                 {this.toggledConfigWindow()}
@@ -70,6 +63,12 @@ class TicTacToe extends React.Component {
         this.setState({
             [field]: value
         });
+    }
+
+
+    getStateValue(field) {
+
+        return this.state[field];
     }
 
 
@@ -142,7 +141,7 @@ class TicTacToe extends React.Component {
                         activePlayerSymbol={activePlayerSymbol}
                         isGameFinished={this.state.isGameFinished}
                         gameRasterData={gameRasterData}
-                        onCellClickHandler={this.onCellClickHandler}
+                        onCellClickHandler={::this.onCellClickHandler}
             />
         );
     }

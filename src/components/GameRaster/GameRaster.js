@@ -5,6 +5,8 @@ import {getMaxValueFromData} from '../../utils/dataUtils';
 
 import CellComponent from '../CellComponent/CellComponent';
 
+import styles from './GameRaster.scss';
+
 
 class GameRaster extends React.Component {
 
@@ -24,7 +26,7 @@ class GameRaster extends React.Component {
 
                 {this.renderHeadline()}
 
-                <table className={'gameRaster'}>
+                <table className={styles.gameField}>
                     <tbody>
 
                         {this.renderGameRaster()}
@@ -84,10 +86,10 @@ class GameRaster extends React.Component {
 
     setCssClasses() {
 
-        let cssClasses = 'gameField';
+        let cssClasses = styles.gameRaster;
 
         if (this.props.isGameFinished) {
-            cssClasses += ' finished';
+            cssClasses += ` ${styles.finished}`;
         }
 
         return cssClasses;

@@ -1,0 +1,21 @@
+
+.gameRaster {
+    margin-top: 30px;
+    padding: 20px;
+    transition: all 0.2s ease;
+
+    h3 {
+        margin: 0 0 20px 0;
+    }
+
+    &.finished {
+        background: lightgreen;
+    }
+
+    .gameField {
+        border: 1px solid #000;
+        border-collapse: collapse;
+        user-select: none;
+        transition: all 0.2s ease
+    }
+}

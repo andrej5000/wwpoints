@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import styles from './CellComponent.scss';
+
 
 class CellComponent extends React.Component {
 
     constructor(props) {
         super(props);
-
-        this.onCellClick = this.onCellClick.bind(this);
 
         this.state = {
             activePlayerSymbol: ''
@@ -29,7 +29,7 @@ class CellComponent extends React.Component {
 
         return (
             <td className={this.setCssClasses()}
-                onClick={this.onCellClick}
+                onClick={::this.onCellClick}
             >
                 {this.state.activePlayerSymbol}
             </td>
@@ -39,10 +39,10 @@ class CellComponent extends React.Component {
 
     setCssClasses() {
 
-        let cssClasses = 'gameCell';
+        let cssClasses = styles.gameCell;
 
         if (this.props.cellValue) {
-            cssClasses += ' active';
+            cssClasses += ` ${styles.active}`;
         }
 
         return cssClasses;

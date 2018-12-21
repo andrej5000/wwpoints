@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import styles from './ConfigComponent.scss';
+
 
 class ConfigComponent extends React.Component {
 
@@ -10,16 +12,10 @@ class ConfigComponent extends React.Component {
         fieldWidthName: PropTypes.string.isRequired,
         fieldWidthValue: PropTypes.number.isRequired,
         isConfigWindowVisible: PropTypes.bool.isRequired,
+        onGetConfigValue: PropTypes.func.isRequired,
         onSetConfigValue: PropTypes.func.isRequired,
         onRenderGameField: PropTypes.func.isRequired
     };
-
-
-    constructor(props) {
-        super(props);
-
-        this.onClickHandler = this.onClickHandler.bind(this);
-    }
 
 
     render() {
@@ -40,7 +36,7 @@ class ConfigComponent extends React.Component {
 
 
         return (
-            <table>
+            <table className={styles.configTable}>
                 <tbody>
                     <tr>
                         <td>
@@ -74,7 +70,7 @@ class ConfigComponent extends React.Component {
                     </tr>
                     <tr>
                         <td colSpan={2}>
-                            <button onClick={this.onClickHandler}>
+                            <button onClick={::this.onClickHandler}>
                                 Render TicTacToe field
                             </button>
                         </td>
@@ -88,9 +84,18 @@ class ConfigComponent extends React.Component {
     onClickHandler() {
 
         // Reset old game.
-        this.props.onSetConfigValue('isGameFinished', false);
+        this.resetGame();
 
         this.props.onRenderGameField()
+    }
+
+
+    resetGame() {
+
+        const {onSetConfigValue, onGetConfigValue} = this.props;
+
+        onSetConfigValue('isGameFinished', false);
+        onSetConfigValue('activePlayer', onGetConfigValue('players')[0].name);
     }
 }
 
