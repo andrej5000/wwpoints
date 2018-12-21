@@ -10,6 +10,7 @@ h3 {
 .gameField {
     margin-top: 30px;
     padding: 20px;
+    transition: all 0.2s ease;
 }
         .gameField.finished {
             background: lightgreen;
@@ -19,6 +20,7 @@ h3 {
     border: 1px solid #000;
     border-collapse: collapse;
     user-select: none;
+    transition: all 0.2s ease
 }
         .gameRaster .gameCell {
             background: #fff;
@@ -31,6 +33,7 @@ h3 {
             position: relative;
             text-align: center;
             width: 40px;
+            transition: all 0.2s ease
         }
                 .gameRaster .gameCell:hover {
                     background: #eee;

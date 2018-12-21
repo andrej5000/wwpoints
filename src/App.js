@@ -11,7 +11,7 @@ class TicTacToe extends React.Component {
     constructor(props) {
         super(props);
 
-        this.createGameFieldData = this.createGameFieldData.bind(this);
+        this.createGameRasterData = this.createGameRasterData.bind(this);
         this.setStateValue = this.setStateValue.bind(this);
         this.onCellClickHandler = this.onCellClickHandler.bind(this);
         this.onCreateGame = this.onCreateGame.bind(this);
@@ -29,7 +29,7 @@ class TicTacToe extends React.Component {
                 {name: 2, symbol: 'O'},
                 {name: 3, symbol: 'M'}
             ],
-            rasterData: []
+            gameRasterData: []
         };
     }
 
@@ -75,13 +75,13 @@ class TicTacToe extends React.Component {
 
     onCreateGame() {
 
-        this.createGameFieldData();
+        this.createGameRasterData();
 
         this.setStateValue('isConfigWindowVisible', false);
     }
 
 
-    createGameFieldData() {
+    createGameRasterData() {
 
         let createdFieldData = [];
 
@@ -99,7 +99,7 @@ class TicTacToe extends React.Component {
             }
         }
 
-        this.setStateValue('rasterData', createdFieldData);
+        this.setStateValue('gameRasterData', createdFieldData);
     }
 
 
@@ -123,7 +123,7 @@ class TicTacToe extends React.Component {
             activePlayer,
             isConfigWindowVisible,
             players,
-            rasterData
+            gameRasterData
         } = this.state;
 
 
@@ -141,17 +141,17 @@ class TicTacToe extends React.Component {
             <GameRaster activePlayer={activePlayer}
                         activePlayerSymbol={activePlayerSymbol}
                         isGameFinished={this.state.isGameFinished}
-                        rasterData={rasterData}
+                        gameRasterData={gameRasterData}
                         onCellClickHandler={this.onCellClickHandler}
             />
         );
     }
 
 
-    onCellClickHandler(x, y, player) {
+    onCellClickHandler(x, y, currentPlayer) {
 
-        //Find clicked cell data in raster data...
-        const obj = this.state.rasterData.find((element) => {
+        //Find clicked cell in game raster data...
+        const obj = this.state.gameRasterData.find((element) => {
 
             return element.x === x && element.y === y
         });
@@ -159,23 +159,35 @@ class TicTacToe extends React.Component {
         //...and only if 'value' of found data is 'false' (as initially set)...
         if (!obj['value']) {
 
-            // ...we assign player number to value in state's raster data.
-            obj['value'] = player;
+            // ...we assign player number to value in state's raster data (for symbol recognition etc.)...
+            obj['value'] = currentPlayer;
 
-            // Now we define the next player...
-            const nextPlayer = (player + 1) > this.state.players.length ? 1 : (player + 1);
+            // ... and define the next player who has to make a move and persist that player into state...
+            this.setNextPlayer(currentPlayer);
 
-            // ...and persist that into state.
-            this.setStateValue('activePlayer', nextPlayer);
+            // ... and in case all cells are clicked on, we need to abort the game!
+            this.checkForGameOver();
+        }
+    }
 
-            const remainingCells = this.state.rasterData.filter((element) => {
 
-                return element.value === false
-            });
+    setNextPlayer(currentPlayer) {
 
-            if (remainingCells.length === 0) {
-                this.setStateValue('isGameFinished', true);
-            }
+        const nextPlayer = (currentPlayer + 1) > this.state.players.length ? 1 : (currentPlayer + 1);
+
+        this.setStateValue('activePlayer', nextPlayer);
+    }
+
+
+    checkForGameOver() {
+
+        const remainingCells = this.state.gameRasterData.filter((element) => {
+
+            return element.value === false
+        });
+
+        if (remainingCells.length === 0) {
+            this.setStateValue('isGameFinished', true);
         }
     }
 }

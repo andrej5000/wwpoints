@@ -87,7 +87,9 @@ class ConfigComponent extends React.Component {
 
     onClickHandler() {
 
+        // Reset old game.
         this.props.onSetConfigValue('isGameFinished', false);
+
         this.props.onRenderGameField()
     }
 }

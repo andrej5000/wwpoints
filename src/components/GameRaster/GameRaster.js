@@ -12,7 +12,7 @@ class GameRaster extends React.Component {
         activePlayer: PropTypes.number.isRequired,
         activePlayerSymbol: PropTypes.string.isRequired,
         isGameFinished: PropTypes.bool.isRequired,
-        rasterData: PropTypes.array.isRequired,
+        gameRasterData: PropTypes.array.isRequired,
         onCellClickHandler: PropTypes.func.isRequired
     };
 
@@ -22,7 +22,7 @@ class GameRaster extends React.Component {
         return (
             <div className={this.setCssClasses()}>
 
-                <h3>Your turn, player {this.props.activePlayerSymbol}</h3>
+                {this.renderHeadline()}
 
                 <table className={'gameRaster'}>
                     <tbody>
@@ -41,15 +41,15 @@ class GameRaster extends React.Component {
         const {
             activePlayer,
             activePlayerSymbol,
-            rasterData,
+            gameRasterData,
             onCellClickHandler
         } = this.props;
 
         let count = -1; // make sure cell counter value starts with zero after for-loops
         let gameRaster = [];
 
-        const rasterHeight = getMaxValueFromData(rasterData, 'y');
-        const rasterWidth = getMaxValueFromData(rasterData, 'x');
+        const rasterHeight = getMaxValueFromData(gameRasterData, 'y');
+        const rasterWidth = getMaxValueFromData(gameRasterData, 'x');
 
         for (let i = 0; i <= rasterHeight; i++){
 
@@ -58,14 +58,13 @@ class GameRaster extends React.Component {
             for (let j = 0; j <= rasterWidth; j++){
                 count++;
 
-                let cellX = rasterData[count].x;
-                let cellY = rasterData[count].y;
-                let cellValue = rasterData[count].value;
+                let cellX = gameRasterData[count].x;
+                let cellY = gameRasterData[count].y;
+                let cellValue = gameRasterData[count].value;
 
                 cells.push(
                     <CellComponent activePlayerSymbol={activePlayerSymbol}
                                    cellValue={cellValue}
-                                   number={count}
                                    key={count}
                                    onCellClickHandler={() => onCellClickHandler(cellX, cellY, activePlayer)}
                     />
@@ -92,6 +91,18 @@ class GameRaster extends React.Component {
         }
 
         return cssClasses;
+    }
+
+
+    renderHeadline() {
+
+        let text = `Your turn, player ${this.props.activePlayerSymbol}`;
+
+        if (this.props.isGameFinished) {
+            text = 'Game over!';
+        }
+
+        return <h3>{text}</h3>;
     }
 }
 
