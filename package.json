@@ -1,7 +1,14 @@
 {
     "name": "tictactoe",
     "version": "1.0.0",
-    "description": "",
+    "description": "Tic Tac Toe (React, webpack, babel)",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/andrej5000/wwpoints.git"
+    },
+    "engines": {
+        "node": ">=11.0.0"
+    },
     "main": "index.js",
     "scripts": {
         "build": "webpack --mode production",
@@ -16,9 +23,13 @@
         "@babel/plugin-transform-spread": "7.2.2",
         "@babel/preset-env": "7.2.3",
         "@babel/preset-react": "7.0.0",
+        "babel-eslint": "10.0.1",
         "babel-loader": "8.0.4",
         "babel-plugin-transform-function-bind": "6.22.0",
         "css-loader": "2.0.2",
+        "eslint": "5.10.0",
+        "eslint-loader": "2.1.1",
+        "eslint-plugin-react": "7.11.1",
         "html-loader": "0.5.5",
         "html-webpack-plugin": "3.2.0",
         "node-sass": "4.11.0",
@@ -31,5 +42,6 @@
         "webpack": "4.28.1",
         "webpack-cli": "3.1.2",
         "webpack-dev-server": "3.1.10"
-    }
+    },
+    "dependencies": {}
 }

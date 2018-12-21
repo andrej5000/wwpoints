@@ -7,7 +7,7 @@ module.exports = {
         rules: [
 
             {
-                test: /\.(js|jsx)$/,
+                test: /\.jsx?$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader'
@@ -63,5 +63,4 @@ module.exports = {
             filename: './index.html'
         })
     ]
-
 };
