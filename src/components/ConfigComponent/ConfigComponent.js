@@ -12,6 +12,7 @@ class ConfigComponent extends React.Component {
         fieldWidthName: PropTypes.string.isRequired,
         fieldWidthValue: PropTypes.number.isRequired,
         isConfigWindowVisible: PropTypes.bool.isRequired,
+        maxRasterDimension: PropTypes.number.isRequired,
         onGetConfigValue: PropTypes.func.isRequired,
         onSetConfigValue: PropTypes.func.isRequired,
         onRenderGameField: PropTypes.func.isRequired
@@ -20,13 +21,13 @@ class ConfigComponent extends React.Component {
 
     render() {
 
-        const{
+        const {
             fieldHeightName,
             fieldHeightValue,
             fieldWidthName,
             fieldWidthValue,
             isConfigWindowVisible,
-            onSetConfigValue,
+            onSetConfigValue
         } = this.props;
 
 
@@ -39,6 +40,11 @@ class ConfigComponent extends React.Component {
             <table className={styles.configTable}>
                 <tbody>
                     <tr>
+                        <td colSpan={2}>
+                            <i><small>Max. rows and columns: {this.props.maxRasterDimension}</small></i>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>
                             <label htmlFor={'fieldHeight'}>
                                 Field height:
@@ -46,7 +52,10 @@ class ConfigComponent extends React.Component {
                         </td>
                         <td>
                             <input id={'fieldHeight'}
-                                   onChange={() => onSetConfigValue(fieldHeightName, Number(this.inputWidth.value))}
+                                   onChange={() => onSetConfigValue(
+                                       fieldHeightName,
+                                       ::this.validate(this.inputWidth.value)
+                                   )}
                                    onFocus={() => this.inputWidth.setSelectionRange(0, this.inputWidth.value.length)} // auto-select mobile Safari safe
                                    ref={(inputWidth) => this.inputWidth = inputWidth}
                                    value={fieldHeightValue}
@@ -61,7 +70,10 @@ class ConfigComponent extends React.Component {
                         </td>
                         <td>
                             <input id={'fieldWidth'}
-                                   onChange={() => onSetConfigValue(fieldWidthName, Number(this.inputHeight.value))}
+                                   onChange={() => onSetConfigValue(
+                                       fieldWidthName,
+                                       ::this.validate(this.inputHeight.value)
+                                   )}
                                    onFocus={() => this.inputHeight.setSelectionRange(0, this.inputHeight.value.length)} // auto-select mobile Safari safe
                                    ref={(inputHeight) => this.inputHeight = inputHeight}
                                    value={fieldWidthValue}
@@ -78,7 +90,7 @@ class ConfigComponent extends React.Component {
                 </tbody>
             </table>
         );
-    };
+    }
 
 
     onClickHandler() {
@@ -86,7 +98,7 @@ class ConfigComponent extends React.Component {
         // Reset old game.
         this.resetGame();
 
-        this.props.onRenderGameField()
+        this.props.onRenderGameField();
     }
 
 
@@ -96,6 +108,16 @@ class ConfigComponent extends React.Component {
 
         onSetConfigValue('isGameFinished', false);
         onSetConfigValue('activePlayer', onGetConfigValue('players')[0].name);
+    }
+
+
+    validate(value) {
+
+        if (isNaN(value)) {
+            return 0;
+        }
+
+        return value > this.props.maxRasterDimension ? this.props.maxRasterDimension : Number(value);
     }
 }
 

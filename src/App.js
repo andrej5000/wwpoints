@@ -17,10 +17,10 @@ class TicTacToe extends React.Component {
             initialCellValue: false,
             isConfigWindowVisible: true,
             isGameFinished: false,
+            maxRasterDimension: 20, // max rows|columns per game raster
             players: [
                 {name: 1, symbol: 'X'},
-                {name: 2, symbol: 'O'},
-                {name: 3, symbol: 'M'}
+                {name: 2, symbol: 'O'}
             ]
         };
     }
@@ -28,10 +28,11 @@ class TicTacToe extends React.Component {
 
     render() {
 
-        const{
+        const {
             fieldHeight,
             fieldWidth,
-            isConfigWindowVisible
+            isConfigWindowVisible,
+            maxRasterDimension
         } = this.state;
 
         return (
@@ -42,6 +43,7 @@ class TicTacToe extends React.Component {
                                  fieldWidthName={'fieldWidth'}
                                  fieldWidthValue={Number(fieldWidth)}
                                  isConfigWindowVisible={isConfigWindowVisible}
+                                 maxRasterDimension={maxRasterDimension}
                                  onGetConfigValue={::this.getStateValue}
                                  onSetConfigValue={::this.setStateValue}
                                  onRenderGameField={::this.onCreateGame}
@@ -132,8 +134,8 @@ class TicTacToe extends React.Component {
 
         const activePlayerSymbol = players.find((element) => {
 
-            return element.name === activePlayer
-        })['symbol'];
+            return element.name === activePlayer;
+        }).symbol;
 
 
         return (
@@ -152,14 +154,14 @@ class TicTacToe extends React.Component {
         //Find clicked cell in game raster data...
         const obj = this.state.gameRasterData.find((element) => {
 
-            return element.x === x && element.y === y
+            return element.x === x && element.y === y;
         });
 
         //...and only if 'value' of found data is 'false' (as initially set)...
-        if (!obj['value']) {
+        if (!obj.value) {
 
             // ...we assign player number to value in state's raster data (for symbol recognition etc.)...
-            obj['value'] = currentPlayer;
+            obj.value = currentPlayer;
 
             // ... and define the next player who has to make a move and persist that player into state...
             this.setNextPlayer(currentPlayer);
@@ -182,7 +184,7 @@ class TicTacToe extends React.Component {
 
         const remainingCells = this.state.gameRasterData.filter((element) => {
 
-            return element.value === false
+            return element.value === false;
         });
 
         if (remainingCells.length === 0) {
