@@ -52,12 +52,11 @@ class ConfigComponent extends React.Component {
                         </td>
                         <td>
                             <input id={'fieldHeight'}
-                                   onChange={() => onSetConfigValue(
+                                   onChange={(event) => onSetConfigValue(
                                        fieldHeightName,
-                                       ::this.validate(this.inputWidth.value)
+                                       ::this.validate(event.target.value)
                                    )}
-                                   onFocus={() => this.inputWidth.setSelectionRange(0, this.inputWidth.value.length)} // auto-select mobile Safari safe
-                                   ref={(inputWidth) => this.inputWidth = inputWidth}
+                                   onFocus={(event) => event.target.setSelectionRange(0, event.target.value.length)} // auto-select mobile Safari safe
                                    value={fieldHeightValue}
                             />
                         </td>
@@ -70,12 +69,11 @@ class ConfigComponent extends React.Component {
                         </td>
                         <td>
                             <input id={'fieldWidth'}
-                                   onChange={() => onSetConfigValue(
+                                   onChange={(event) => onSetConfigValue(
                                        fieldWidthName,
-                                       ::this.validate(this.inputHeight.value)
+                                       ::this.validate(event.target.value)
                                    )}
-                                   onFocus={() => this.inputHeight.setSelectionRange(0, this.inputHeight.value.length)} // auto-select mobile Safari safe
-                                   ref={(inputHeight) => this.inputHeight = inputHeight}
+                                   onFocus={(event) => event.target.setSelectionRange(0, event.target.value.length)} // auto-select mobile Safari safe
                                    value={fieldWidthValue}
                             />
                         </td>
