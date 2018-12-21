@@ -18,9 +18,10 @@ class TicTacToe extends React.Component {
         this.toggledConfigWindow = this.toggledConfigWindow.bind(this);
 
         this.state = {
-            activePlayer: 1,
+            activePlayer: 1, // min|max values are 1|3, equivalent to `this.state.players[i].name`
             fieldHeight: 3,
             fieldWidth: 3,
+            gameRasterData: [],
             initialCellValue: false,
             isConfigWindowVisible: true,
             isGameFinished: false,
@@ -28,8 +29,7 @@ class TicTacToe extends React.Component {
                 {name: 1, symbol: 'X'},
                 {name: 2, symbol: 'O'},
                 {name: 3, symbol: 'M'}
-            ],
-            gameRasterData: []
+            ]
         };
     }
 
