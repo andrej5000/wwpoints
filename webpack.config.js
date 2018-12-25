@@ -1,6 +1,10 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
 module.exports = {
+
+    // sourcemap generation
+    devtool: 'source-map',
 
     module: {
 
@@ -62,5 +66,11 @@ module.exports = {
             template: './src/index.html',
             filename: './index.html'
         })
-    ]
+    ],
+
+    output: {
+        filename: '[name].[hash].js',
+        path: path.resolve('./dist'), // this is required to be relative to the project root
+        publicPath: '/'
+    }
 };

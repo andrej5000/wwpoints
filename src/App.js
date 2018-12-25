@@ -28,25 +28,13 @@ class TicTacToe extends React.Component {
 
     render() {
 
-        const {
-            fieldHeight,
-            fieldWidth,
-            isConfigWindowVisible,
-            maxRasterDimension
-        } = this.state;
-
         return (
             <React.Fragment>
 
-                <ConfigComponent fieldHeightName={'fieldHeight'}
-                                 fieldHeightValue={Number(fieldHeight)}
-                                 fieldWidthName={'fieldWidth'}
-                                 fieldWidthValue={Number(fieldWidth)}
-                                 isConfigWindowVisible={isConfigWindowVisible}
-                                 maxRasterDimension={maxRasterDimension}
-                                 onGetConfigValue={::this.getStateValue}
+                <ConfigComponent onGetConfigValue={::this.getStateValue}
                                  onSetConfigValue={::this.setStateValue}
                                  onRenderGameField={::this.onCreateGame}
+                                 state={this.state}
                 />
 
                 {this.toggledConfigWindow()}

@@ -7,31 +7,22 @@ import styles from './ConfigComponent.scss';
 class ConfigComponent extends React.Component {
 
     static propTypes = {
-        fieldHeightName: PropTypes.string.isRequired,
-        fieldHeightValue: PropTypes.number.isRequired,
-        fieldWidthName: PropTypes.string.isRequired,
-        fieldWidthValue: PropTypes.number.isRequired,
-        isConfigWindowVisible: PropTypes.bool.isRequired,
-        maxRasterDimension: PropTypes.number.isRequired,
         onGetConfigValue: PropTypes.func.isRequired,
         onSetConfigValue: PropTypes.func.isRequired,
-        onRenderGameField: PropTypes.func.isRequired
+        onRenderGameField: PropTypes.func.isRequired,
+        state: PropTypes.object.isRequired
     };
 
 
     render() {
 
         const {
-            fieldHeightName,
-            fieldHeightValue,
-            fieldWidthName,
-            fieldWidthValue,
-            isConfigWindowVisible,
-            onSetConfigValue
+            onSetConfigValue,
+            state
         } = this.props;
 
 
-        if (!isConfigWindowVisible) {
+        if (!state.isConfigWindowVisible) {
             return null;
         }
 
@@ -41,7 +32,7 @@ class ConfigComponent extends React.Component {
                 <tbody>
                     <tr>
                         <td colSpan={2}>
-                            <i><small>Max. rows and columns: {this.props.maxRasterDimension}</small></i>
+                            <i><small>Max. rows and columns: {state.maxRasterDimension}</small></i>
                         </td>
                     </tr>
                     <tr>
@@ -53,11 +44,11 @@ class ConfigComponent extends React.Component {
                         <td>
                             <input id={'fieldHeight'}
                                    onChange={(event) => onSetConfigValue(
-                                       fieldHeightName,
+                                       this.getConfigFieldFromStateProp('fieldHeight'),
                                        ::this.validate(event.target.value)
                                    )}
                                    onFocus={(event) => event.target.setSelectionRange(0, event.target.value.length)} // auto-select mobile Safari safe
-                                   value={fieldHeightValue}
+                                   value={state.fieldHeight}
                             />
                         </td>
                     </tr>
@@ -70,11 +61,11 @@ class ConfigComponent extends React.Component {
                         <td>
                             <input id={'fieldWidth'}
                                    onChange={(event) => onSetConfigValue(
-                                       fieldWidthName,
+                                       this.getConfigFieldFromStateProp('fieldWidth'),
                                        ::this.validate(event.target.value)
                                    )}
                                    onFocus={(event) => event.target.setSelectionRange(0, event.target.value.length)} // auto-select mobile Safari safe
-                                   value={fieldWidthValue}
+                                   value={state.fieldWidth}
                             />
                         </td>
                     </tr>
@@ -104,8 +95,15 @@ class ConfigComponent extends React.Component {
 
         const {onSetConfigValue, onGetConfigValue} = this.props;
 
-        onSetConfigValue('isGameFinished', false);
-        onSetConfigValue('activePlayer', onGetConfigValue('players')[0].name);
+        onSetConfigValue(
+            this.getConfigFieldFromStateProp('isGameFinished'),
+            false
+        );
+
+        onSetConfigValue(
+            this.getConfigFieldFromStateProp('activePlayer'),
+            onGetConfigValue('players')[0].name
+        );
     }
 
 
@@ -115,7 +113,19 @@ class ConfigComponent extends React.Component {
             return 0;
         }
 
-        return value > this.props.maxRasterDimension ? this.props.maxRasterDimension : Number(value);
+        return value > this.props.state.maxRasterDimension
+               ? this.props.state.maxRasterDimension
+               : Number(value);
+    }
+
+
+    getConfigFieldFromStateProp(field) {
+
+        return Object
+            .keys(this.props.state)
+            .filter(
+                (stateField) => stateField === field
+            );
     }
 }
 
