@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {getMaxValueFromData} from '../../utils/dataUtils';
-
 import CellComponent from '../CellComponent/CellComponent';
 
 import styles from './GameRaster.scss';
@@ -11,11 +9,13 @@ import styles from './GameRaster.scss';
 class GameRaster extends React.Component {
 
     static propTypes = {
-        activePlayer: PropTypes.number.isRequired,
-        activePlayerSymbol: PropTypes.string.isRequired,
+        activePlayerName: PropTypes.string.isRequired,
         isGameFinished: PropTypes.bool.isRequired,
         gameRasterData: PropTypes.array.isRequired,
-        onCellClickHandler: PropTypes.func.isRequired
+        gameRasterHeight: PropTypes.number.isRequired,
+        gameRasterWidth: PropTypes.number.isRequired,
+        onCellClickHandler: PropTypes.func.isRequired,
+        winningPlayerName: PropTypes.string.isRequired
     };
 
 
@@ -24,7 +24,7 @@ class GameRaster extends React.Component {
         return (
             <div className={this.setCssClasses()}>
 
-                {this.renderHeadline()}
+                {this.renderHeadlines()}
 
                 <table className={styles.gameField}>
                     <tbody>
@@ -40,41 +40,33 @@ class GameRaster extends React.Component {
 
     renderGameRaster() {
 
-        const {
-            activePlayer,
-            activePlayerSymbol,
-            gameRasterData,
-            onCellClickHandler
-        } = this.props;
+        const gameRaster = [];
 
-        let count = -1; // make sure cell counter value starts with zero after for-loops
-        let gameRaster = [];
+        for (let y = 0; y < this.props.gameRasterHeight; y++) {
 
-        const rasterHeight = getMaxValueFromData(gameRasterData, 'y');
-        const rasterWidth = getMaxValueFromData(gameRasterData, 'x');
+            const cells = [];
 
-        for (let i = 0; i <= rasterHeight; i++){
+            for (let x = 0; x < this.props.gameRasterWidth; x++) {
 
-            let cells = [];
-
-            for (let j = 0; j <= rasterWidth; j++){
-                count++;
-
-                let cellX = gameRasterData[count].x;
-                let cellY = gameRasterData[count].y;
-                let cellValue = gameRasterData[count].value;
+                const cell = this.props.gameRasterData.find((cell) => cell.x === x && cell.y === y);
+                const cellValue = cell.value;
 
                 cells.push(
-                    <CellComponent activePlayerSymbol={activePlayerSymbol}
-                                   cellValue={cellValue}
-                                   key={count}
-                                   onCellClickHandler={() => onCellClickHandler(cellX, cellY, activePlayer)}
+                    <CellComponent cellValue={cellValue}
+                                   isGameFinished={this.props.isGameFinished}
+                                   isWinningSequenceCell={cell.isWinningSequenceCell}
+                                   key={y + x}
+                                   onCellClickHandler={
+                                       () => !cellValue && !this.props.isGameFinished
+                                             ? this.props.onCellClickHandler({...cell})
+                                             : null
+                                   }
                     />
                 );
             }
 
             gameRaster.push(
-                <tr key={i}>
+                <tr key={y}>
                     {cells}
                 </tr>
             );
@@ -92,19 +84,33 @@ class GameRaster extends React.Component {
             cssClasses += ` ${styles.finished}`;
         }
 
+        if (this.props.winningPlayerName !== '') {
+            cssClasses += ` ${styles.hasGameWinner}`;
+        }
+
         return cssClasses;
     }
 
 
-    renderHeadline() {
+    renderHeadlines() {
 
-        let text = `Your turn, player ${this.props.activePlayerSymbol}`;
+        let cssClass = '';
+        let text = `Your turn, ${this.props.activePlayerName}.`;
 
         if (this.props.isGameFinished) {
-            text = 'Game over!';
+            text = 'Game over, no winner!';
         }
 
-        return <h3>{text}</h3>;
+        if (this.props.winningPlayerName !== '') {
+            cssClass = styles.blink;
+            text = `Game over! Winner: ${this.props.winningPlayerName}`;
+        }
+
+        return (
+            <React.Fragment>
+                <h3 className={cssClass}>{text}</h3>
+            </React.Fragment>
+        );
     }
 }
 

@@ -9,6 +9,10 @@
     }
 
     &.finished {
+        background: lightgray;
+    }
+
+    &.hasGameWinner {
         background: lightgreen;
     }
 
@@ -17,5 +21,41 @@
         border-collapse: collapse;
         user-select: none;
         transition: all 0.2s ease
+    }
+
+    h3 {
+        display: inline-block;
+        font-size: 28px;
+        margin: 0 0 20px;
+        padding: 10px;
+    }
+
+    .blink {
+        animation-duration: 1000ms;
+        animation-name: blink;
+        animation-iteration-count: infinite;
+        background: #fff;
+    }
+
+    @keyframes blink {
+        0% {
+            color: pink;
+        }
+
+        25% {
+            color: green;
+        }
+
+        50% {
+            color: blue;
+        }
+
+        75% {
+            color: red;
+        }
+
+        100% {
+            color: pink;
+        }
     }
 }

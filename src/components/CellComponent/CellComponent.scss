@@ -21,4 +21,16 @@
         background: #fff;
         cursor: auto;
     }
+
+    &.isWinningSequenceCell,
+    &.isWinningSequenceCell:hover {
+        background-color: green;
+        color: white;
+    }
+
+    &.inactive:not(.isWinningSequenceCell),
+    &.inactive:not(.isWinningSequenceCell):hover {
+        background: #fff;
+        cursor: auto;
+    }
 }

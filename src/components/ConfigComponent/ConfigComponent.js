@@ -7,24 +7,22 @@ import styles from './ConfigComponent.scss';
 class ConfigComponent extends React.Component {
 
     static propTypes = {
-        onGetConfigValue: PropTypes.func.isRequired,
-        onSetConfigValue: PropTypes.func.isRequired,
-        onRenderGameField: PropTypes.func.isRequired,
+        onCreateNewGame: PropTypes.func.isRequired,
+        onSetGameRasterHeight: PropTypes.func.isRequired,
+        onSetGameRasterWidth: PropTypes.func.isRequired,
         state: PropTypes.object.isRequired
     };
 
 
     render() {
 
-        const {
-            onSetConfigValue,
-            state
-        } = this.props;
-
-
-        if (!state.isConfigWindowVisible) {
+        if (!this.props.state.isConfigWindowVisible) {
             return null;
         }
+
+        const {
+            state
+        } = this.props;
 
 
         return (
@@ -37,72 +35,45 @@ class ConfigComponent extends React.Component {
                     </tr>
                     <tr>
                         <td>
-                            <label htmlFor={'fieldHeight'}>
+                            <label htmlFor={'gameRasterHeight'}>
                                 Field height:
                             </label>
                         </td>
                         <td>
-                            <input id={'fieldHeight'}
-                                   onChange={(event) => onSetConfigValue(
-                                       this.getConfigFieldFromStateProp('fieldHeight'),
+                            <input id={'gameRasterHeight'}
+                                   onChange={(event) => this.props.onSetGameRasterHeight(
                                        ::this.validate(event.target.value)
                                    )}
-                                   onFocus={(event) => event.target.setSelectionRange(0, event.target.value.length)} // auto-select mobile Safari safe
-                                   value={state.fieldHeight}
+                                   onFocus={(event) => ConfigComponent.autoSelect(event)}
+                                   value={state.gameRasterHeight}
                             />
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label htmlFor={'fieldWidth'}>
+                            <label htmlFor={'gameRasterWidth'}>
                                 Field width:
                             </label>
                         </td>
                         <td>
-                            <input id={'fieldWidth'}
-                                   onChange={(event) => onSetConfigValue(
-                                       this.getConfigFieldFromStateProp('fieldWidth'),
+                            <input id={'gameRasterWidth'}
+                                   onChange={(event) => this.props.onSetGameRasterWidth(
                                        ::this.validate(event.target.value)
                                    )}
-                                   onFocus={(event) => event.target.setSelectionRange(0, event.target.value.length)} // auto-select mobile Safari safe
-                                   value={state.fieldWidth}
+                                   onFocus={(event) => ConfigComponent.autoSelect(event)}
+                                   value={state.gameRasterWidth}
                             />
                         </td>
                     </tr>
                     <tr>
                         <td colSpan={2}>
-                            <button onClick={::this.onClickHandler}>
-                                Render TicTacToe field
+                            <button onClick={this.props.onCreateNewGame}>
+                                Create Tic Tac Toe game
                             </button>
                         </td>
                     </tr>
                 </tbody>
             </table>
-        );
-    }
-
-
-    onClickHandler() {
-
-        // Reset old game.
-        this.resetGame();
-
-        this.props.onRenderGameField();
-    }
-
-
-    resetGame() {
-
-        const {onSetConfigValue, onGetConfigValue} = this.props;
-
-        onSetConfigValue(
-            this.getConfigFieldFromStateProp('isGameFinished'),
-            false
-        );
-
-        onSetConfigValue(
-            this.getConfigFieldFromStateProp('activePlayer'),
-            onGetConfigValue('players')[0].name
         );
     }
 
@@ -119,13 +90,9 @@ class ConfigComponent extends React.Component {
     }
 
 
-    getConfigFieldFromStateProp(field) {
-
-        return Object
-            .keys(this.props.state)
-            .filter(
-                (stateField) => stateField === field
-            );
+    static autoSelect(event) {
+        // auto-select mobile Safari safe
+        event.target.setSelectionRange(0, event.target.value.length);
     }
 }
 

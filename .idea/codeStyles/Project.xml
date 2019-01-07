@@ -18,7 +18,6 @@
     </HTMLCodeStyleSettings>
     <JSCodeStyleSettings>
       <option name="USE_DOUBLE_QUOTES" value="false" />
-      <option name="OBJECT_LITERAL_WRAP" value="2" />
     </JSCodeStyleSettings>
     <PHPCodeStyleSettings>
       <option name="ALIGN_KEY_VALUE_PAIRS" value="true" />
