@@ -72,8 +72,8 @@ class TicTacToe extends React.Component {
             <ConfigComponent gameRasterHeight={this.state.config.gameRasterHeight}
                              gameRasterWidth={this.state.config.gameRasterWidth}
                              onCreateNewGame={::this.createNewGame}
-                             onSetGameRasterHeight={::this.setGameRasterHeight}
-                             onSetGameRasterWidth={::this.setGameRasterWidth}
+                             onSetGameRasterHeight={(gameRasterHeight) => ::this.setConfigValue({gameRasterHeight})}
+                             onSetGameRasterWidth={(gameRasterWidth) => ::this.setConfigValue({gameRasterWidth})}
             />
         );
     }
@@ -378,23 +378,12 @@ class TicTacToe extends React.Component {
     }
 
 
-    setGameRasterHeight(value) {
+    setConfigValue(newConfigData) {
 
         this.setState({
             config: {
                 ...this.state.config,
-                gameRasterHeight: value
-            }
-        });
-    }
-
-
-    setGameRasterWidth(value) {
-
-        this.setState({
-            config: {
-                ...this.state.config,
-                gameRasterWidth: value
+                ...newConfigData
             }
         });
     }
