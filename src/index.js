@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import './App.scss';
+import TicTacToe from './TicTacToe';
+import './TicTacToe.scss';
 
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<TicTacToe />, document.getElementById('root'));

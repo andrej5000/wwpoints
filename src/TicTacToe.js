@@ -374,16 +374,16 @@ class TicTacToe extends React.Component {
     setGameRasterHeight(value) {
 
         this.setState({
-                          gameRasterHeight: value
-                      });
+            gameRasterHeight: value
+        });
     }
 
 
     setGameRasterWidth(value) {
 
         this.setState({
-                          gameRasterWidth: value
-                      });
+            gameRasterWidth: value
+        });
     }
 }
 
