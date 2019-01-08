@@ -12,8 +12,6 @@ class GameRasterComponent extends React.Component {
         activePlayerName: PropTypes.string.isRequired,
         isGameFinished: PropTypes.bool.isRequired,
         gameRasterData: PropTypes.array.isRequired,
-        gameRasterHeight: PropTypes.number.isRequired,
-        gameRasterWidth: PropTypes.number.isRequired,
         onCellClickHandler: PropTypes.func.isRequired,
         winningPlayerName: PropTypes.string.isRequired
     };
@@ -40,24 +38,31 @@ class GameRasterComponent extends React.Component {
 
     renderGameRaster() {
 
-        const gameRaster = [];
+        const {
+            gameRasterData,
+            isGameFinished
+        } = this.props;
 
-        for (let y = 0; y < this.props.gameRasterHeight; y++) {
+        const gameRaster = [];
+        const gameRasterHeight = gameRasterData.filter((cell) => cell.x >= 0 && cell.y === 0).length;
+        const gameRasterWidth = gameRasterData.filter((cell) => cell.y >= 0 && cell.x === 0).length;
+
+        for (let y = 0; y < gameRasterHeight; y++) {
 
             const cells = [];
 
-            for (let x = 0; x < this.props.gameRasterWidth; x++) {
+            for (let x = 0; x < gameRasterWidth; x++) {
 
-                const cell = this.props.gameRasterData.find((cell) => cell.x === x && cell.y === y);
+                const cell = gameRasterData.find((cell) => cell.x === x && cell.y === y);
                 const cellValue = cell.value;
 
                 cells.push(
                     <CellComponent cellValue={cellValue}
-                                   isGameFinished={this.props.isGameFinished}
+                                   isGameFinished={isGameFinished}
                                    isWinningSequenceCell={cell.isWinningSequenceCell}
                                    key={y + x}
                                    onCellClickHandler={
-                                       () => !cellValue && !this.props.isGameFinished
+                                       () => !cellValue && !isGameFinished
                                              ? this.props.onCellClickHandler({...cell})
                                              : null
                                    }
@@ -94,7 +99,6 @@ class GameRasterComponent extends React.Component {
 
     renderHeadlines() {
 
-        let cssClass = '';
         let text = `Your turn, ${this.props.activePlayerName}.`;
 
         if (this.props.isGameFinished) {
@@ -102,13 +106,12 @@ class GameRasterComponent extends React.Component {
         }
 
         if (this.props.winningPlayerName !== '') {
-            cssClass = styles.blink;
             text = `Game over! Winner: ${this.props.winningPlayerName}`;
         }
 
         return (
             <React.Fragment>
-                <h3 className={cssClass}>{text}</h3>
+                <h3>{text}</h3>
             </React.Fragment>
         );
     }

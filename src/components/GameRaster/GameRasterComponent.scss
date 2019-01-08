@@ -5,7 +5,17 @@
     transition: all 0.2s ease;
 
     h3 {
-        margin: 0 0 20px 0;
+        display: inline-block;
+        font-size: 28px;
+        margin: 0 0 20px;
+        padding: 10px;
+    }
+
+    .gameField {
+        border: 1px solid #000;
+        border-collapse: collapse;
+        transition: all 0.2s ease;
+        user-select: none;
     }
 
     &.finished {
@@ -14,27 +24,13 @@
 
     &.hasGameWinner {
         background: lightgreen;
-    }
 
-    .gameField {
-        border: 1px solid #000;
-        border-collapse: collapse;
-        user-select: none;
-        transition: all 0.2s ease
-    }
-
-    h3 {
-        display: inline-block;
-        font-size: 28px;
-        margin: 0 0 20px;
-        padding: 10px;
-    }
-
-    .blink {
-        animation-duration: 1000ms;
-        animation-name: blink;
-        animation-iteration-count: infinite;
-        background: #fff;
+        h3 {
+            animation-duration: 1000ms;
+            animation-name: blink;
+            animation-iteration-count: infinite;
+            background: #fff;
+        }
     }
 
     @keyframes blink {

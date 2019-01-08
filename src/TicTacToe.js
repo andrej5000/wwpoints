@@ -55,7 +55,6 @@ class TicTacToe extends React.Component {
 
                 {this.renderGameRaster()}
 
-
             </React.Fragment>
         );
     }
@@ -158,8 +157,6 @@ class TicTacToe extends React.Component {
         const {
             activePlayerName,
             gameRasterData,
-            gameRasterHeight,
-            gameRasterWidth,
             isGameFinished
         } = this.state;
 
@@ -168,8 +165,6 @@ class TicTacToe extends React.Component {
             <GameRasterComponent activePlayerName={activePlayerName}
                                  isGameFinished={isGameFinished}
                                  gameRasterData={gameRasterData}
-                                 gameRasterHeight={gameRasterHeight}
-                                 gameRasterWidth={gameRasterWidth}
                                  onCellClickHandler={::this.onCellClickHandler}
                                  winningPlayerName={this.state.winningPlayerName}
             />
