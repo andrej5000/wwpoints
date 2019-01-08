@@ -1,7 +1,7 @@
 import React from 'react';
 
-import ConfigComponent from './components/ConfigComponent';
-import GameRaster from './components/GameRaster';
+import ConfigComponent from './components/Config';
+import GameRasterComponent from './components/GameRaster';
 
 
 class TicTacToe extends React.Component {
@@ -153,13 +153,13 @@ class TicTacToe extends React.Component {
 
 
         return (
-            <GameRaster activePlayerName={activePlayerName}
-                        isGameFinished={isGameFinished}
-                        gameRasterData={gameRasterData}
-                        gameRasterHeight={gameRasterHeight}
-                        gameRasterWidth={gameRasterWidth}
-                        onCellClickHandler={::this.onCellClickHandler}
-                        winningPlayerName={this.state.winningPlayerName}
+            <GameRasterComponent activePlayerName={activePlayerName}
+                                 isGameFinished={isGameFinished}
+                                 gameRasterData={gameRasterData}
+                                 gameRasterHeight={gameRasterHeight}
+                                 gameRasterWidth={gameRasterWidth}
+                                 onCellClickHandler={::this.onCellClickHandler}
+                                 winningPlayerName={this.state.winningPlayerName}
             />
         );
     }

@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import CellComponent from '../CellComponent/CellComponent';
+import CellComponent from '../Cell/CellComponent';
 
-import styles from './GameRaster.scss';
+import styles from './GameRasterComponent.scss';
 
 
-class GameRaster extends React.Component {
+class GameRasterComponent extends React.Component {
 
     static propTypes = {
         activePlayerName: PropTypes.string.isRequired,
@@ -115,4 +115,4 @@ class GameRaster extends React.Component {
 }
 
 
-export default GameRaster;
+export default GameRasterComponent;

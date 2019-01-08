@@ -1,3 +1,3 @@
-import GameRaster from './GameRaster';
+import GameRasterComponent from './GameRasterComponent';
 
-export default GameRaster;
+export default GameRasterComponent;
