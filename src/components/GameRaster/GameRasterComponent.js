@@ -10,8 +10,8 @@ class GameRasterComponent extends React.Component {
 
     static propTypes = {
         activePlayerName: PropTypes.string.isRequired,
-        isGameFinished: PropTypes.bool.isRequired,
         gameRasterData: PropTypes.array.isRequired,
+        isGameFinished: PropTypes.bool.isRequired,
         onCellClickHandler: PropTypes.func.isRequired,
         winningPlayerName: PropTypes.string.isRequired
     };
@@ -22,12 +22,16 @@ class GameRasterComponent extends React.Component {
         return (
             <div className={this.setCssClasses()}>
 
+
                 {this.renderHeadlines()}
+
 
                 <table className={styles.gameField}>
                     <tbody>
 
+
                         {this.renderGameRaster()}
+
 
                     </tbody>
                 </table>
@@ -44,8 +48,8 @@ class GameRasterComponent extends React.Component {
         } = this.props;
 
         const gameRaster = [];
-        const gameRasterHeight = gameRasterData.filter((cell) => cell.x >= 0 && cell.y === 0).length;
-        const gameRasterWidth = gameRasterData.filter((cell) => cell.y >= 0 && cell.x === 0).length;
+        const gameRasterHeight = gameRasterData.filter((cell) => cell.y >= 0 && cell.x === 0).length;
+        const gameRasterWidth = gameRasterData.filter((cell) => cell.x >= 0 && cell.y === 0).length;
 
         for (let y = 0; y < gameRasterHeight; y++) {
 
