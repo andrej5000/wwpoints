@@ -1,26 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import styles from './CellComponent.scss';
+
 
 class CellComponent extends React.Component {
 
-    constructor(props) {
-        super(props);
-
-        this.onCellClick = this.onCellClick.bind(this);
-
-        this.state = {
-            activePlayerSymbol: ''
-        };
-    }
-
-
     static propTypes = {
-        activePlayerSymbol: PropTypes.string.isRequired,
         cellValue: PropTypes.oneOfType([
             PropTypes.bool,
-            PropTypes.number
+            PropTypes.string
         ]).isRequired,
+        isGameFinished: PropTypes.bool.isRequired,
+        isWinningSequenceCell: PropTypes.bool.isRequired,
         onCellClickHandler: PropTypes.func.isRequired
     };
 
@@ -29,9 +21,9 @@ class CellComponent extends React.Component {
 
         return (
             <td className={this.setCssClasses()}
-                onClick={this.onCellClick}
+                onClick={::this.props.onCellClickHandler}
             >
-                {this.state.activePlayerSymbol}
+                {this.props.cellValue}
             </td>
         );
     }
@@ -39,27 +31,21 @@ class CellComponent extends React.Component {
 
     setCssClasses() {
 
-        let cssClasses = 'gameCell';
+        let cssClasses = styles.gameCell;
 
         if (this.props.cellValue) {
-            cssClasses += ' active';
+            cssClasses += ` ${styles.active}`;
+        }
+
+        if (this.props.isWinningSequenceCell) {
+            cssClasses += ` ${styles.isWinningSequenceCell}`;
+        }
+
+        if (this.props.isGameFinished) {
+            cssClasses += ` ${styles.inactive}`;
         }
 
         return cssClasses;
-    }
-
-
-    onCellClick() {
-
-        // We need to also store the player's symbol locally. Learned it the hard way ...
-        if (this.state.activePlayerSymbol === '') {
-
-            this.setState({
-                activePlayerSymbol: this.props.activePlayerSymbol
-            });
-        }
-
-        this.props.onCellClickHandler();
     }
 }
 
