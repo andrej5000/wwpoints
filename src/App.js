@@ -174,10 +174,8 @@ class TicTacToe extends React.Component {
         const gameRasterData = [...this.state.gameRasterData];
         this.getCell(gameRasterData, clickedCell).value = activePlayerSymbol; // modification by reference
 
-        let remainingClickableCells = this.state.gameRasterData.filter((cell) => cell.value === false);
-        console.log(remainingClickableCells.length);
-
         const winningSequence = this.validateGameWinner(gameRasterData, clickedCell);
+        const remainingClickableCells = this.state.gameRasterData.filter((cell) => cell.value === false);
         const isGameFinished = winningSequence !== null || remainingClickableCells.length === 0;
 
         if (winningSequence !== null) {
