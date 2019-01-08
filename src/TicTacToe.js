@@ -47,14 +47,7 @@ class TicTacToe extends React.Component {
         return (
             <React.Fragment>
 
-                <ConfigComponent gameRasterHeight={this.state.gameRasterHeight}
-                                 gameRasterWidth={this.state.gameRasterWidth}
-                                 isConfigWindowVisible={this.state.isConfigWindowVisible}
-                                 maxRasterDimension={this.state.maxRasterDimension}
-                                 onCreateNewGame={::this.createNewGame}
-                                 onSetGameRasterHeight={::this.setGameRasterHeight}
-                                 onSetGameRasterWidth={::this.setGameRasterWidth}
-                />
+                {this.renderConfigWindow()}
 
 
                 {this.renderGameConfigButtons()}
@@ -64,6 +57,24 @@ class TicTacToe extends React.Component {
 
 
             </React.Fragment>
+        );
+    }
+
+
+    renderConfigWindow() {
+
+        if (!this.state.isConfigWindowVisible) {
+            return null;
+        }
+
+        return (
+            <ConfigComponent gameRasterHeight={this.state.gameRasterHeight}
+                             gameRasterWidth={this.state.gameRasterWidth}
+                             maxRasterDimension={this.state.maxRasterDimension}
+                             onCreateNewGame={::this.createNewGame}
+                             onSetGameRasterHeight={::this.setGameRasterHeight}
+                             onSetGameRasterWidth={::this.setGameRasterWidth}
+            />
         );
     }
 
@@ -110,11 +121,9 @@ class TicTacToe extends React.Component {
         } = this.state;
 
         let createdGameRasterData = [];
-        let newMinRequiredWinningFields = minRequiredWinningFields;
-
-        if ((gameRasterHeight || gameRasterWidth) < minRequiredWinningFields) {
-            newMinRequiredWinningFields = Math.min(gameRasterHeight, gameRasterWidth);
-        }
+        let newMinRequiredWinningFields = (gameRasterHeight || gameRasterWidth) < minRequiredWinningFields
+                                          ? Math.min(gameRasterHeight, gameRasterWidth)
+                                          : minRequiredWinningFields;
 
         for (let y = 0; y < gameRasterHeight; y++) {
 

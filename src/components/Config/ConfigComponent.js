@@ -9,7 +9,6 @@ class ConfigComponent extends React.Component {
     static propTypes = {
         gameRasterHeight: PropTypes.number.isRequired,
         gameRasterWidth: PropTypes.number.isRequired,
-        isConfigWindowVisible: PropTypes.bool.isRequired,
         maxRasterDimension: PropTypes.number.isRequired,
         onCreateNewGame: PropTypes.func.isRequired,
         onSetGameRasterHeight: PropTypes.func.isRequired,
@@ -18,10 +17,6 @@ class ConfigComponent extends React.Component {
 
 
     render() {
-
-        if (!this.props.isConfigWindowVisible) {
-            return null;
-        }
 
 
         return (
