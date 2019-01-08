@@ -47,10 +47,13 @@ class TicTacToe extends React.Component {
         return (
             <React.Fragment>
 
-                <ConfigComponent onCreateNewGame={::this.createNewGame}
+                <ConfigComponent gameRasterHeight={this.state.gameRasterHeight}
+                                 gameRasterWidth={this.state.gameRasterWidth}
+                                 isConfigWindowVisible={this.state.isConfigWindowVisible}
+                                 maxRasterDimension={this.state.maxRasterDimension}
+                                 onCreateNewGame={::this.createNewGame}
                                  onSetGameRasterHeight={::this.setGameRasterHeight}
                                  onSetGameRasterWidth={::this.setGameRasterWidth}
-                                 state={this.state}
                 />
 
 
@@ -109,7 +112,7 @@ class TicTacToe extends React.Component {
         let createdGameRasterData = [];
         let newMinRequiredWinningFields = minRequiredWinningFields;
 
-        if (gameRasterHeight < minRequiredWinningFields || gameRasterWidth < minRequiredWinningFields) {
+        if ((gameRasterHeight || gameRasterWidth) < minRequiredWinningFields) {
             newMinRequiredWinningFields = Math.min(gameRasterHeight, gameRasterWidth);
         }
 

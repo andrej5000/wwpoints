@@ -7,22 +7,21 @@ import styles from './ConfigComponent.scss';
 class ConfigComponent extends React.Component {
 
     static propTypes = {
+        gameRasterHeight: PropTypes.number.isRequired,
+        gameRasterWidth: PropTypes.number.isRequired,
+        isConfigWindowVisible: PropTypes.bool.isRequired,
+        maxRasterDimension: PropTypes.number.isRequired,
         onCreateNewGame: PropTypes.func.isRequired,
         onSetGameRasterHeight: PropTypes.func.isRequired,
-        onSetGameRasterWidth: PropTypes.func.isRequired,
-        state: PropTypes.object.isRequired
+        onSetGameRasterWidth: PropTypes.func.isRequired
     };
 
 
     render() {
 
-        if (!this.props.state.isConfigWindowVisible) {
+        if (!this.props.isConfigWindowVisible) {
             return null;
         }
-
-        const {
-            state
-        } = this.props;
 
 
         return (
@@ -30,7 +29,9 @@ class ConfigComponent extends React.Component {
                 <tbody>
                     <tr>
                         <td colSpan={2}>
-                            <i><small>Max. rows and columns: {state.maxRasterDimension}</small></i>
+                            <i>
+                                <small>Max. rows and columns: {this.props.maxRasterDimension}</small>
+                            </i>
                         </td>
                     </tr>
                     <tr>
@@ -45,7 +46,7 @@ class ConfigComponent extends React.Component {
                                        ::this.validate(event.target.value)
                                    )}
                                    onFocus={(event) => ConfigComponent.autoSelect(event)}
-                                   value={state.gameRasterHeight}
+                                   value={this.props.gameRasterHeight}
                             />
                         </td>
                     </tr>
@@ -61,7 +62,7 @@ class ConfigComponent extends React.Component {
                                        ::this.validate(event.target.value)
                                    )}
                                    onFocus={(event) => ConfigComponent.autoSelect(event)}
-                                   value={state.gameRasterWidth}
+                                   value={this.props.gameRasterWidth}
                             />
                         </td>
                     </tr>
@@ -84,8 +85,8 @@ class ConfigComponent extends React.Component {
             return 0;
         }
 
-        return value > this.props.state.maxRasterDimension
-               ? this.props.state.maxRasterDimension
+        return value > this.props.maxRasterDimension
+               ? this.props.maxRasterDimension
                : Number(value);
     }
 
