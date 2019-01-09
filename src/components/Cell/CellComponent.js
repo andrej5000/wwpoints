@@ -11,7 +11,7 @@ class CellComponent extends React.Component {
             PropTypes.bool,
             PropTypes.string
         ]).isRequired,
-        isGameFinished: PropTypes.bool.isRequired,
+        isActive: PropTypes.bool.isRequired,
         isWinningSequenceCell: PropTypes.bool.isRequired,
         onCellClickHandler: PropTypes.func.isRequired
     };
@@ -21,7 +21,7 @@ class CellComponent extends React.Component {
 
         return (
             <td className={this.setCssClasses()}
-                onClick={::this.props.onCellClickHandler}
+                onClick={::this.onCellClick}
             >
                 {this.props.cellValue}
             </td>
@@ -41,11 +41,19 @@ class CellComponent extends React.Component {
             cssClasses += ` ${styles.isWinningSequenceCell}`;
         }
 
-        if (this.props.isGameFinished) {
+        if (!this.props.isActive) {
             cssClasses += ` ${styles.inactive}`;
         }
 
         return cssClasses;
+    }
+
+
+    onCellClick() {
+
+        if (this.props.isActive) {
+            this.props.onCellClickHandler();
+        }
     }
 }
 

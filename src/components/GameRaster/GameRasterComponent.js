@@ -62,14 +62,10 @@ class GameRasterComponent extends React.Component {
 
                 cells.push(
                     <CellComponent cellValue={cellValue}
-                                   isGameFinished={isGameFinished}
+                                   isActive={!isGameFinished}
                                    isWinningSequenceCell={cell.isWinningSequenceCell}
                                    key={y + x}
-                                   onCellClickHandler={
-                                       () => !cellValue && !isGameFinished
-                                             ? this.props.onCellClickHandler({...cell})
-                                             : null
-                                   }
+                                   onCellClickHandler={() => this.props.onCellClickHandler({...cell})}
                     />
                 );
             }
@@ -82,6 +78,22 @@ class GameRasterComponent extends React.Component {
         }
 
         return gameRaster;
+    }
+
+
+    renderHeadlines() {
+
+        let text = `Your turn, ${this.props.activePlayerName}.`;
+
+        if (this.props.isGameFinished) {
+            text = 'Game over, no winner!';
+        }
+
+        if (this.props.winningPlayerName !== '') {
+            text = `Game over! Winner: ${this.props.winningPlayerName}`;
+        }
+
+        return <h3>{text}</h3>;
     }
 
 
@@ -98,26 +110,6 @@ class GameRasterComponent extends React.Component {
         }
 
         return cssClasses;
-    }
-
-
-    renderHeadlines() {
-
-        let text = `Your turn, ${this.props.activePlayerName}.`;
-
-        if (this.props.isGameFinished) {
-            text = 'Game over, no winner!';
-        }
-
-        if (this.props.winningPlayerName !== '') {
-            text = `Game over! Winner: ${this.props.winningPlayerName}`;
-        }
-
-        return (
-            <React.Fragment>
-                <h3>{text}</h3>
-            </React.Fragment>
-        );
     }
 }
 
