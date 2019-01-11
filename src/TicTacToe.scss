@@ -37,3 +37,15 @@ input {
     height: 40px;
     width: 40px;
 }
+
+:global {
+
+    * {
+        box-sizing: border-box;
+        border-collapse: collapse;
+        margin: 0;
+        padding: 0;
+        outline: none;
+    }
+
+}
