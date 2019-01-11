@@ -22,16 +22,12 @@ class GameRasterComponent extends React.Component {
         return (
             <div className={this.setCssClasses()}>
 
-
                 {this.renderHeadlines()}
-
 
                 <table className={styles.gameField}>
                     <tbody>
 
-
                         {this.renderGameRaster()}
-
 
                     </tbody>
                 </table>
