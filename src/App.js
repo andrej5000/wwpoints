@@ -15,31 +15,28 @@ class App extends React.Component {
 
     static getDefaultState(gameRasterHeight, gameRasterWidth) {
 
-        // set default dimensions like this so we can reset an already
-        // created game with different dimensions than defaults
-        gameRasterHeight = gameRasterHeight || 6;
-        gameRasterWidth = gameRasterWidth || 6;
+        const defaultDimension = 6;
 
-        const defaultPlayers = [
-            {name: 'Harry', symbol: 'X'},
-            {name: 'Player 2', symbol: 'O'}
-        ];
-
-        const config = {
-            gameRasterHeight: gameRasterHeight,
-            gameRasterWidth: gameRasterWidth,
-            minRequiredWinningFields: 3,
-            players: defaultPlayers
-        };
+        gameRasterHeight = gameRasterHeight || defaultDimension;
+        gameRasterWidth = gameRasterWidth || defaultDimension;
 
         return {
-            activePlayerName: defaultPlayers[0].name,
-            config: config,
-            gameRasterData: [],
-            isConfigWindowVisible: true,
-            isGameFinished: false,
-            winningFields: [],
-            winningPlayerName: ''
+            config: {
+                gameRasterHeight: gameRasterHeight,
+                gameRasterWidth: gameRasterWidth,
+                minRequiredWinningFields: 3,
+                players: [
+                    {
+                        name: 'Harry',
+                        symbol: 'X'
+                    },
+                    {
+                        name: 'Player 2',
+                        symbol: 'O'
+                    }
+                ]
+            },
+            isConfigWindowVisible: true
         };
     }
 
@@ -67,7 +64,7 @@ class App extends React.Component {
         return (
             <ConfigComponent gameRasterHeight={this.state.config.gameRasterHeight}
                              gameRasterWidth={this.state.config.gameRasterWidth}
-                             onCreateNewGame={::this.renderTicTacToe}
+                             onCreateNewGame={() => ::this.setState({isConfigWindowVisible: false})}
                              onSetGameRasterHeight={(gameRasterHeight) => ::this.setConfigValue({gameRasterHeight})}
                              onSetGameRasterWidth={(gameRasterWidth) => ::this.setConfigValue({gameRasterWidth})}
             />
@@ -90,25 +87,8 @@ class App extends React.Component {
                     Set up new game
                 </button>
 
-                &nbsp;&nbsp;
 
-                <button onClick={::this.renderTicTacToe}>
-                    Reset game
-                </button>
-
-
-                <TicTacToe activePlayerName={this.state.activePlayerName}
-                           config={this.state.config}
-                           gameRasterData={this.state.gameRasterData}
-                           isGameFinished={this.state.isGameFinished}
-                           onCreateNewGame={(gameData) => ::this.setState({
-                               ...App.getDefaultState(this.state.config.gameRasterHeight, this.state.config.gameRasterWidth),
-                               gameData
-                           })}
-                           onSetCurrentRoundData={(data) => ::this.setState(data)}
-                           onSetWinningPlayerName={(winningPlayerName) => ::this.setState({winningPlayerName})}
-                           winningPlayerName={this.state.winningPlayerName}
-                />
+                <TicTacToe gameConfig={this.state.config}/>
 
             </React.Fragment>
         );
