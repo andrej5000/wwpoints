@@ -58,6 +58,7 @@ class App extends React.Component {
     renderGameConfig() {
 
         if (!this.state.isConfigWindowVisible) {
+
             return null;
         }
 

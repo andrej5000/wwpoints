@@ -103,7 +103,7 @@ class TicTacToe extends React.Component {
         this.getCell(gameRasterData, clickedCell).value = activePlayerSymbol; // modification by reference
 
         const winningSequence = this.validateGameWinner(gameRasterData, clickedCell);
-        const remainingClickableCells = gameRasterData.filter((cell) => cell.value === false);
+        const remainingClickableCells = this.state.gameRasterData.filter((cell) => cell.value === false);
         const isGameFinished = winningSequence !== null || remainingClickableCells.length === 0;
 
         if (winningSequence !== null) {
@@ -123,29 +123,6 @@ class TicTacToe extends React.Component {
             gameRasterData,
             isGameFinished
         });
-    }
-
-
-    getCell(gameRasterData, coordinates) {
-
-        return gameRasterData.find((cell) => cell.x === coordinates.x && cell.y === coordinates.y);
-    }
-
-
-    getPlayerByName(playerName) {
-
-        return this.props.gameConfig.players.find((player) => player.name === playerName);
-    }
-
-
-    getNextPlayer(currentPlayerName) {
-
-        const {players} = this.props.gameConfig;
-        const currentPlayer = this.getPlayerByName(currentPlayerName);
-        const currentPlayerIndex = players.indexOf(currentPlayer);
-        const newPlayerIndex = players[currentPlayerIndex + 1] ? currentPlayerIndex + 1 : 0;
-
-        return players[newPlayerIndex];
     }
 
 
@@ -194,7 +171,10 @@ class TicTacToe extends React.Component {
 
     getDiagonalStartCoordinates(x, y, xModifier) {
 
-        const deltaX = xModifier === -1 ? x : (this.props.gameConfig.gameRasterWidth - 1) - x;
+        const deltaX = xModifier === -1
+            ? x
+            : (this.props.gameConfig.gameRasterWidth - 1) - x;
+
         const min = Math.min(deltaX, y);
 
         const startX = x + (min * xModifier);
@@ -244,21 +224,21 @@ class TicTacToe extends React.Component {
         for (let i = 0; i < sequence.length; i++) {
 
             const cell = sequence[i];
-            const cellValue = cell.value;
 
             // catching initial/empty cells
-            if (cellValue === false) {
+            if (cell.value === false) {
                 previousSymbol = null;
+                winningSequenceCells = [];
                 continue;
             }
 
-            if (previousSymbol === null || previousSymbol === cellValue) {
+            if (previousSymbol === null || previousSymbol === cell.value) {
                 winningSequenceCells.push(cell);
             } else {
                 winningSequenceCells = [cell];
             }
 
-            previousSymbol = cellValue;
+            previousSymbol = cell.value;
 
             if (winningSequenceCells.length === minRequiredFields) {
 
@@ -267,6 +247,29 @@ class TicTacToe extends React.Component {
         }
 
         return null;
+    }
+
+
+    getCell(gameRasterData, coordinates) {
+
+        return gameRasterData.find((cell) => cell.x === coordinates.x && cell.y === coordinates.y);
+    }
+
+
+    getPlayerByName(playerName) {
+
+        return this.props.gameConfig.players.find((player) => player.name === playerName);
+    }
+
+
+    getNextPlayer(currentPlayerName) {
+
+        const {players} = this.props.gameConfig;
+        const currentPlayer = this.getPlayerByName(currentPlayerName);
+        const currentPlayerIndex = players.indexOf(currentPlayer);
+        const newPlayerIndex = players[currentPlayerIndex + 1] ? currentPlayerIndex + 1 : 0;
+
+        return players[newPlayerIndex];
     }
 
 
