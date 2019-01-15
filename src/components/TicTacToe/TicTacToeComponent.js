@@ -23,7 +23,6 @@ class TicTacToe extends React.Component {
         return {
             activePlayerName: this.props.gameConfig.players[0].name,
             isGameFinished: false,
-            winningFields: [],
             winningPlayerName: '',
             ...this.createGameField()
         };
