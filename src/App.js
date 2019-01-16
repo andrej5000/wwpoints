@@ -41,20 +41,6 @@ class App extends React.Component {
     }
 
 
-    render() {
-
-        return (
-            <React.Fragment>
-
-                {this.renderGameConfig()}
-
-                {this.renderTicTacToe()}
-
-            </React.Fragment>
-        );
-    }
-
-
     renderGameConfig() {
 
         if (!this.state.isConfigWindowVisible) {
@@ -88,7 +74,6 @@ class App extends React.Component {
                     Set up new game
                 </button>
 
-
                 <TicTacToe gameConfig={this.state.config}/>
 
             </React.Fragment>
@@ -104,6 +89,20 @@ class App extends React.Component {
                 ...newConfigData
             }
         });
+    }
+
+
+    render() {
+
+        return (
+            <React.Fragment>
+
+                {this.renderGameConfig()}
+
+                {this.renderTicTacToe()}
+
+            </React.Fragment>
+        );
     }
 }
 
