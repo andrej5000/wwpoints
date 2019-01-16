@@ -27,11 +27,11 @@ class App extends React.Component {
                 minRequiredWinningFields: 3,
                 players: [
                     {
-                        name: 'Harry',
+                        name: 'Apollo',
                         symbol: 'X'
                     },
                     {
-                        name: 'Player 2',
+                        name: 'Boreas',
                         symbol: 'O'
                     }
                 ]

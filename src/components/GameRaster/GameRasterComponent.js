@@ -12,28 +12,8 @@ class GameRasterComponent extends React.Component {
         activePlayerName: PropTypes.string.isRequired,
         gameRasterData: PropTypes.array.isRequired,
         isGameFinished: PropTypes.bool.isRequired,
-        onCellClickHandler: PropTypes.func.isRequired,
-        winningPlayerName: PropTypes.string.isRequired
+        onCellClickHandler: PropTypes.func.isRequired
     };
-
-
-    render() {
-
-        return (
-            <div className={this.setCssClasses()}>
-
-                {this.renderHeadlines()}
-
-                <table className={styles.gameField}>
-                    <tbody>
-
-                        {this.renderGameRaster()}
-
-                    </tbody>
-                </table>
-            </div>
-        );
-    }
 
 
     renderGameRaster() {
@@ -79,17 +59,24 @@ class GameRasterComponent extends React.Component {
 
     renderHeadlines() {
 
-        let text = `Your turn, ${this.props.activePlayerName}.`;
+        const hasWinner = this.hasWinner();
+        let text;
 
-        if (this.props.isGameFinished) {
+        if (this.props.isGameFinished && !hasWinner) {
             text = 'Game over, no winner!';
-        }
-
-        if (this.props.winningPlayerName !== '') {
-            text = `Game over! Winner: ${this.props.winningPlayerName}`;
+        } else if (this.props.isGameFinished && hasWinner) {
+            text = `Game over! Winner: ${this.props.activePlayerName}`;
+        } else {
+            text = `Your turn, ${this.props.activePlayerName}.`;
         }
 
         return <h3>{text}</h3>;
+    }
+
+
+    hasWinner() {
+
+        return this.props.gameRasterData.filter((cell) => cell.isWinningSequenceCell).length > 0;
     }
 
 
@@ -101,11 +88,30 @@ class GameRasterComponent extends React.Component {
             cssClasses += ` ${styles.finished}`;
         }
 
-        if (this.props.winningPlayerName !== '') {
+        if (this.hasWinner()) {
             cssClasses += ` ${styles.hasGameWinner}`;
         }
 
         return cssClasses;
+    }
+
+
+    render() {
+
+        return (
+            <div className={this.setCssClasses()}>
+
+                {this.renderHeadlines()}
+
+                <table className={styles.gameField}>
+                    <tbody>
+
+                        {this.renderGameRaster()}
+
+                    </tbody>
+                </table>
+            </div>
+        );
     }
 }
 

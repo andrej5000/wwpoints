@@ -17,6 +17,24 @@ class ConfigComponent extends React.Component {
     };
 
 
+    static validate(value) {
+
+        if (isNaN(value)) {
+            return 1;
+        }
+
+        return value > MAX_RASTER_DIMENSION
+               ? MAX_RASTER_DIMENSION
+               : Number(value);
+    }
+
+
+    static autoSelect(event) {
+        // auto-select mobile Safari safe
+        event.target.setSelectionRange(0, event.target.value.length);
+    }
+
+
     render() {
 
         return (
@@ -73,24 +91,6 @@ class ConfigComponent extends React.Component {
                 </tbody>
             </table>
         );
-    }
-
-
-    static validate(value) {
-
-        if (isNaN(value)) {
-            return 1;
-        }
-
-        return value > MAX_RASTER_DIMENSION
-               ? MAX_RASTER_DIMENSION
-               : Number(value);
-    }
-
-
-    static autoSelect(event) {
-        // auto-select mobile Safari safe
-        event.target.setSelectionRange(0, event.target.value.length);
     }
 }
 
