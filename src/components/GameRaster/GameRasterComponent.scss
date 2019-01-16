@@ -1,0 +1,57 @@
+
+.gameRaster {
+    margin-top: 30px;
+    padding: 20px;
+    transition: all 0.2s ease;
+
+    h3 {
+        display: inline-block;
+        font-size: 28px;
+        margin: 0 0 20px;
+        padding: 10px;
+    }
+
+    .gameField {
+        border: 1px solid #000;
+        border-collapse: collapse;
+        transition: all 0.2s ease;
+        user-select: none;
+    }
+
+    &.finished {
+        background: lightgray;
+    }
+
+    &.hasGameWinner {
+        background: lightgreen;
+
+        h3 {
+            animation-duration: 1000ms;
+            animation-name: blink;
+            animation-iteration-count: infinite;
+            background: #fff;
+        }
+    }
+
+    @keyframes blink {
+        0% {
+            color: pink;
+        }
+
+        25% {
+            color: green;
+        }
+
+        50% {
+            color: blue;
+        }
+
+        75% {
+            color: red;
+        }
+
+        100% {
+            color: pink;
+        }
+    }
+}

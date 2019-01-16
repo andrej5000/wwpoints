@@ -1,0 +1,36 @@
+
+.gameCell {
+    background: #fff;
+    border: 1px solid #000;
+    cursor: pointer;
+    font-size: 30px;
+    font-weight: bold;
+    height: 60px;
+    padding: 10px;
+    position: relative;
+    text-align: center;
+    width: 60px;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: #eee;
+    }
+
+    &.active,
+    &.active:hover {
+        background: #fff;
+        cursor: auto;
+    }
+
+    &.isWinningSequenceCell,
+    &.isWinningSequenceCell:hover {
+        background-color: green;
+        color: white;
+    }
+
+    &.inactive:not(.isWinningSequenceCell),
+    &.inactive:not(.isWinningSequenceCell):hover {
+        background: #fff;
+        cursor: auto;
+    }
+}

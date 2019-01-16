@@ -1,0 +1,41 @@
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: -apple-system, "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+    border: 1px solid lightseagreen;
+    cursor: pointer;
+    font-size: 0.85em;
+    margin: 0 10px;
+    padding: 10px 15px;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: lightseagreen;
+        color: #fff;
+    }
+}
+
+input {
+    border: 1px solid lightseagreen;
+    font-size: 0.85em;
+    padding: 5px 10px;
+    transition: all 0.2s ease;
+}
+
+:global {
+
+    * {
+        box-sizing: border-box;
+        border-collapse: collapse;
+        margin: 0;
+        padding: 0;
+        outline: none;
+    }
+
+}
