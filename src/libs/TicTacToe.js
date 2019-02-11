@@ -33,6 +33,9 @@ class TicTacToe {
     }
 
 
+    /**
+     * @returns {array|object[]} Sets overall game raster data
+     */
     createGameRasterData() {
 
         const gameRasterData = [];
@@ -56,12 +59,25 @@ class TicTacToe {
     }
 
 
+    /**
+     * Exposed/used from outside.
+     *
+     * @returns {array|object[]} Getter for overall game raster data
+     */
     getGameRasterData() {
 
         return this.gameRasterData;
     }
 
 
+    /**
+     * Exposed/used from outside. Method called from embedding component, triggered when
+     * a player clicks a cell in game raster.
+     *
+     * @param clickedCell {Object} Cell clicked by player
+     * @param symbol {String} Symbol rendered into cell clicked by player (i.e. "X" or "O")
+     * @returns {array|object[]} Cells reflecting a winning sequence
+     */
     markCell(clickedCell, symbol) {
 
         // copy and set symbol
@@ -84,12 +100,22 @@ class TicTacToe {
     }
 
 
+    /**
+     * @param gameRasterData {array|object[]} Overall game raster data
+     * @param coordinates {object} Single cell data record from gameRasterData
+     * @returns {object} Found cell data at position from @param coordinates
+     */
     getCell(gameRasterData, coordinates) {
 
         return gameRasterData.find((cell) => cell.x === coordinates.x && cell.y === coordinates.y);
     }
 
 
+    /**
+     * @param gameRasterData {array|object[]} Overall game raster data
+     * @param cell {object} Data record of clicked cell
+     * @returns {array|null} Returns null|winning sequence cells
+     */
     validateGameWinner(gameRasterData, cell) {
 
         const winningCheckSequences = [
@@ -133,6 +159,12 @@ class TicTacToe {
     }
 
 
+    /**
+     * @param x {number}
+     * @param y {number}
+     * @param xModifier {number}
+     * @returns {{x: number, y: number}}
+     */
     getDiagonalStartCoordinates(x, y, xModifier) {
 
         const deltaX = xModifier === -1
@@ -151,6 +183,12 @@ class TicTacToe {
     }
 
 
+    /**
+     * @param gameRasterData {array|object[]} Overall game raster data
+     * @param startCoordinates {object} Contains x amd y position of cell to start the sequence from
+     * @param xModifier {Number} Direction to "move" when getting sequence
+     * @returns {array} Array of cells from gameRasterData reflecting a sequence to be validated
+     */
     getDiagonalSequence(gameRasterData, startCoordinates, xModifier) {
 
         const sequence = [];
@@ -178,7 +216,7 @@ class TicTacToe {
     /**
      * @param sequence {array|object[]}
      * @param minRequiredFields {number} Minimum subsequent identical symbols to define a winning sequence
-     * @return {array|object[]} Cells reflecting a winning sequence; empty if none
+     * @return {{array|object[]}|null} Cells reflecting a winning sequence; null if none
      */
     static getWinningSequence(sequence, minRequiredFields) {
 

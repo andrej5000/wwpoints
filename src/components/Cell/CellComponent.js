@@ -17,18 +17,6 @@ class CellComponent extends React.Component {
     };
 
 
-    render() {
-
-        return (
-            <td className={this.setCssClasses()}
-                onClick={::this.onCellClick}
-            >
-                {this.props.cellValue}
-            </td>
-        );
-    }
-
-
     setCssClasses() {
 
         let cssClasses = styles.gameCell;
@@ -54,6 +42,18 @@ class CellComponent extends React.Component {
         if (this.props.isActive) {
             this.props.onCellClickHandler();
         }
+    }
+
+
+    render() {
+
+        return (
+            <td className={this.setCssClasses()}
+                onClick={::this.onCellClick}
+            >
+                {this.props.cellValue}
+            </td>
+        );
     }
 }
 
