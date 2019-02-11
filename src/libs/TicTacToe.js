@@ -6,7 +6,7 @@ class TicTacToe {
     /**
      * Configuration object passed in from constructor
      *
-     * @type {object}
+     * @type {object|JSON}
      */
     config;
 
@@ -15,6 +15,10 @@ class TicTacToe {
      * @param config {object}
      */
     constructor(config) {
+
+        if (!config || typeof config !== 'object') {
+            throw 'constructor(): Expecting JSON config object but was not given';
+        }
 
         const {
             gameRasterHeight,
@@ -75,67 +79,60 @@ class TicTacToe {
      * a player clicks a cell in game raster.
      *
      * @param clickedCell {Object} Cell clicked by player
-     * @param symbol {String} Symbol rendered into cell clicked by player (i.e. "X" or "O")
+     * @param symbol {String} Symbol rendered into cell clicked by player (i.e. "X" or "O" etc.)
      * @returns {array|object[]} Cells reflecting a winning sequence
      */
     markCell(clickedCell, symbol) {
 
         // copy and set symbol
-        const gameRasterData = [...this.gameRasterData];
-        this.getCell(gameRasterData, clickedCell).value = symbol; // modification by reference
+        this.getCell(clickedCell).value = symbol; // modification by reference
 
-        const winningSequence = this.validateGameWinner(gameRasterData, clickedCell);
+        const winningSequence = this.validateGameWinner(clickedCell);
 
         if (winningSequence !== null) {
 
             winningSequence.forEach((winningCell) => {
 
-                this.getCell(gameRasterData, winningCell).isWinningSequenceCell = true; // modification by reference
+                this.getCell(winningCell).isWinningSequenceCell = true; // modification by reference
             });
         }
-
-        this.gameRasterData = gameRasterData;
 
         return winningSequence;
     }
 
 
     /**
-     * @param gameRasterData {array|object[]} Overall game raster data
      * @param coordinates {object} Single cell data record from gameRasterData
      * @returns {object} Found cell data at position from @param coordinates
      */
-    getCell(gameRasterData, coordinates) {
+    getCell(coordinates) {
 
-        return gameRasterData.find((cell) => cell.x === coordinates.x && cell.y === coordinates.y);
+        return this.gameRasterData.find((cell) => cell.x === coordinates.x && cell.y === coordinates.y);
     }
 
 
     /**
-     * @param gameRasterData {array|object[]} Overall game raster data
      * @param cell {object} Data record of clicked cell
      * @returns {array|null} Returns null|winning sequence cells
      */
-    validateGameWinner(gameRasterData, cell) {
+    validateGameWinner(cell) {
 
         const winningCheckSequences = [
 
             // horizontal
-            gameRasterData.filter((data) => data.y === cell.y),
+            this.gameRasterData.filter((data) => data.y === cell.y),
 
             // vertical
-            gameRasterData.filter((data) => data.x === cell.x),
+            this.gameRasterData.filter((data) => data.x === cell.x),
 
             // diagonal top left
             this.getDiagonalSequence(
-                gameRasterData,
                 this.getDiagonalStartCoordinates(cell.x, cell.y, -1),
                 1
             ),
 
             // diagonal top right
             this.getDiagonalSequence(
-                gameRasterData,
                 this.getDiagonalStartCoordinates(cell.x, cell.y, 1),
                 -1
             )
@@ -184,19 +181,18 @@ class TicTacToe {
 
 
     /**
-     * @param gameRasterData {array|object[]} Overall game raster data
      * @param startCoordinates {object} Contains x amd y position of cell to start the sequence from
      * @param xModifier {Number} Direction to "move" when getting sequence
      * @returns {array} Array of cells from gameRasterData reflecting a sequence to be validated
      */
-    getDiagonalSequence(gameRasterData, startCoordinates, xModifier) {
+    getDiagonalSequence(startCoordinates, xModifier) {
 
         const sequence = [];
         let coordinates = startCoordinates;
         let cell;
 
         do {
-            cell = this.getCell(gameRasterData, coordinates);
+            cell = this.getCell(coordinates);
 
             if (cell) {
                 sequence.push(cell);
