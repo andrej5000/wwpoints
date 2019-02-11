@@ -1,0 +1,16 @@
+{
+    "collectCoverageFrom": [
+        "../../src/libs/TicTacToe.js"
+    ],
+    "roots": [
+        "../../src",
+        "../../test"
+    ],
+    "testPathIgnorePatterns": [
+        "\\\\node_modules\\\\"
+    ],
+    "testMatch": [
+        "**/**/*Test.js"
+    ],
+    "verbose": true
+}

@@ -1,7 +1,7 @@
 
-##Setup and start the app:
+## Setup and start the app:
 
-####In console:
+#### In console:
 
 1.) ```$ npm install```
 
