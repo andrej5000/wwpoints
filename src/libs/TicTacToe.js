@@ -6,7 +6,7 @@ class TicTacToe {
     /**
      * Configuration object passed in from constructor
      *
-     * @type {object|JSON}
+     * @type {object}
      */
     config;
 
@@ -15,10 +15,6 @@ class TicTacToe {
      * @param config {object}
      */
     constructor(config) {
-
-        if (!config || typeof config !== 'object') {
-            throw 'constructor(): Expecting JSON config object but was not given';
-        }
 
         const {
             gameRasterHeight,
@@ -37,9 +33,6 @@ class TicTacToe {
     }
 
 
-    /**
-     * @returns {array|object[]} Sets overall game raster data
-     */
     createGameRasterData() {
 
         const gameRasterData = [];
@@ -63,76 +56,60 @@ class TicTacToe {
     }
 
 
-    /**
-     * Exposed/used from outside.
-     *
-     * @returns {array|object[]} Getter for overall game raster data
-     */
     getGameRasterData() {
 
         return this.gameRasterData;
     }
 
 
-    /**
-     * Exposed/used from outside. Method called from embedding component, triggered when
-     * a player clicks a cell in game raster.
-     *
-     * @param clickedCell {Object} Cell clicked by player
-     * @param symbol {String} Symbol rendered into cell clicked by player (i.e. "X" or "O" etc.)
-     * @returns {array|object[]} Cells reflecting a winning sequence
-     */
     markCell(clickedCell, symbol) {
 
         // copy and set symbol
-        this.getCell(clickedCell).value = symbol; // modification by reference
+        const gameRasterData = [...this.gameRasterData];
+        this.getCell(gameRasterData, clickedCell).value = symbol; // modification by reference
 
-        const winningSequence = this.validateGameWinner(clickedCell);
+        const winningSequence = this.validateGameWinner(gameRasterData, clickedCell);
 
         if (winningSequence !== null) {
 
             winningSequence.forEach((winningCell) => {
 
-                this.getCell(winningCell).isWinningSequenceCell = true; // modification by reference
+                this.getCell(gameRasterData, winningCell).isWinningSequenceCell = true; // modification by reference
             });
         }
+
+        this.gameRasterData = gameRasterData;
 
         return winningSequence;
     }
 
 
-    /**
-     * @param coordinates {object} Single cell data record from gameRasterData
-     * @returns {object} Found cell data at position from @param coordinates
-     */
-    getCell(coordinates) {
+    getCell(gameRasterData, coordinates) {
 
-        return this.gameRasterData.find((cell) => cell.x === coordinates.x && cell.y === coordinates.y);
+        return gameRasterData.find((cell) => cell.x === coordinates.x && cell.y === coordinates.y);
     }
 
 
-    /**
-     * @param cell {object} Data record of clicked cell
-     * @returns {array|null} Returns null|winning sequence cells
-     */
-    validateGameWinner(cell) {
+    validateGameWinner(gameRasterData, cell) {
 
         const winningCheckSequences = [
 
             // horizontal
-            this.gameRasterData.filter((data) => data.y === cell.y),
+            gameRasterData.filter((data) => data.y === cell.y),
 
             // vertical
-            this.gameRasterData.filter((data) => data.x === cell.x),
+            gameRasterData.filter((data) => data.x === cell.x),
 
             // diagonal top left
             this.getDiagonalSequence(
+                gameRasterData,
                 this.getDiagonalStartCoordinates(cell.x, cell.y, -1),
                 1
             ),
 
             // diagonal top right
             this.getDiagonalSequence(
+                gameRasterData,
                 this.getDiagonalStartCoordinates(cell.x, cell.y, 1),
                 -1
             )
@@ -156,12 +133,6 @@ class TicTacToe {
     }
 
 
-    /**
-     * @param x {number}
-     * @param y {number}
-     * @param xModifier {number}
-     * @returns {{x: number, y: number}}
-     */
     getDiagonalStartCoordinates(x, y, xModifier) {
 
         const deltaX = xModifier === -1
@@ -180,19 +151,14 @@ class TicTacToe {
     }
 
 
-    /**
-     * @param startCoordinates {object} Contains x amd y position of cell to start the sequence from
-     * @param xModifier {Number} Direction to "move" when getting sequence
-     * @returns {array} Array of cells from gameRasterData reflecting a sequence to be validated
-     */
-    getDiagonalSequence(startCoordinates, xModifier) {
+    getDiagonalSequence(gameRasterData, startCoordinates, xModifier) {
 
         const sequence = [];
         let coordinates = startCoordinates;
         let cell;
 
         do {
-            cell = this.getCell(coordinates);
+            cell = this.getCell(gameRasterData, coordinates);
 
             if (cell) {
                 sequence.push(cell);
@@ -212,7 +178,7 @@ class TicTacToe {
     /**
      * @param sequence {array|object[]}
      * @param minRequiredFields {number} Minimum subsequent identical symbols to define a winning sequence
-     * @return {{array|object[]}|null} Cells reflecting a winning sequence; null if none
+     * @return {array|object[]} Cells reflecting a winning sequence; empty if none
      */
     static getWinningSequence(sequence, minRequiredFields) {
 
