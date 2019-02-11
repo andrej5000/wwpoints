@@ -1,10 +1,12 @@
 {
     "collectCoverageFrom": [
-        "../../src/libs/TicTacToe.js"
+        "./src/**"
     ],
+    "coverageDirectory": "./target/coverage",
+    "rootDir": "../..",
     "roots": [
-        "../../src",
-        "../../test"
+        "./src",
+        "./test"
     ],
     "testPathIgnorePatterns": [
         "\\\\node_modules\\\\"

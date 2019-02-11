@@ -16,7 +16,7 @@
         "start": "webpack-dev-server --open --mode development",
         "test:unit": "jest --config ./test/unit/jest.config.json",
         "test:unit:watch": "jest --config ./test/unit/jest.config.json --watch",
-        "test:unit:coverage": "jest --debug --config ./test/unit/jest.config.json --coverage --colors"
+        "test:unit:coverage": "jest --config ./test/unit/jest.config.json --coverage --colors"
     },
     "keywords": [],
     "license": "ISC",
