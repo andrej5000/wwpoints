@@ -25,8 +25,7 @@ describe('TicTacToe', () => {
 
         it('constructor(): Check if constructor is called with config', () => {
 
-            expect(ticTacToe.config)
-                .toEqual(config);
+            expect(ticTacToe.config).toEqual(config);
         });
 
 
@@ -44,30 +43,28 @@ describe('TicTacToe', () => {
                 caughtError = error;
             }
 
-            expect(caughtError)
-                .toEqual('constructor(): Expecting JSON config object but was not given');
+            expect(caughtError).toEqual('constructor(): Expecting JSON config object but was not given');
         });
 
 
         it('constructor(): Conditionally adjusts minRequiredWinningFields according to width and height', () => {
 
             const config = {
-                gameRasterHeight: 1, // dimension set is lower than minRequiredWinningFields
-                gameRasterWidth: 2, // dimension set is lower than minRequiredWinningFields
+                gameRasterHeight: 5, // dimension set is lower than minRequiredWinningFields
+                gameRasterWidth: 1, // dimension set is lower than minRequiredWinningFields
                 minRequiredWinningFields: 3
             };
 
             const ticTacToe = new TicTacToe(config);
 
             expect(ticTacToe.config.minRequiredWinningFields)
-                .toEqual(1);
+                .toEqual(Math.min(config.gameRasterHeight, config.gameRasterWidth));
         });
 
 
         it('constructor(): Game raster data dimensions is as expected', () => {
 
-            expect(ticTacToe.gameRasterData.length)
-                .toEqual(config.gameRasterHeight * config.gameRasterWidth);
+            expect(ticTacToe.gameRasterData.length).toEqual(config.gameRasterHeight * config.gameRasterWidth);
         });
 
 
@@ -79,12 +76,9 @@ describe('TicTacToe', () => {
 
                     const cell = gameRasterData.find((cell) => cell.x === x && cell.y === y);
 
-                    expect(cell)
-                        .toBeDefined();
-                    expect(cell.isWinningSequenceCell)
-                        .toBe(false);
-                    expect(cell.value)
-                        .toBe(false);
+                    expect(cell).toBeDefined();
+                    expect(cell.isWinningSequenceCell).toBe(false);
+                    expect(cell.value).toBe(false);
                 }
             }
         });
@@ -95,15 +89,13 @@ describe('TicTacToe', () => {
 
         it('createGameRasterData(): Creation of game raster data is triggered by function and result is OK', () => {
 
-            expect(ticTacToe.createGameRasterData())
-                .toEqual(gameRasterData);
+            expect(ticTacToe.createGameRasterData()).toEqual(gameRasterData);
         });
 
 
         it('getGameRasterData(): Getter for gameRasterData is working correctly', () => {
 
-            expect(ticTacToe.getGameRasterData())
-                .toEqual(gameRasterData);
+            expect(ticTacToe.getGameRasterData()).toEqual(gameRasterData);
         });
 
 
@@ -114,8 +106,7 @@ describe('TicTacToe', () => {
                 y: 0
             };
 
-            expect(ticTacToe.getCell(coordinates))
-                .toEqual(gameRasterData[0]);
+            expect(ticTacToe.getCell(coordinates)).toEqual(gameRasterData[0]);
         });
 
 
@@ -166,7 +157,7 @@ describe('TicTacToe', () => {
                         value = cell.value;
                     });
 
-                    expect(executeMarkCell(cells)).toHaveLength(3);
+                    expect(executeMarkCell(cells)).toHaveLength(config.minRequiredWinningFields);
                     expect(isWinningSequenceCell).toEqual(true);
                     expect(value).toEqual(symbol);
                 });
@@ -202,7 +193,7 @@ describe('TicTacToe', () => {
                         value = cell.value;
                     });
 
-                    expect(executeMarkCell(cells)).toHaveLength(3);
+                    expect(executeMarkCell(cells)).toHaveLength(config.minRequiredWinningFields);
                     expect(isWinningSequenceCell).toEqual(true);
                     expect(value).toEqual(symbol);
                 });
@@ -239,7 +230,7 @@ describe('TicTacToe', () => {
                         value = cell.value;
                     });
 
-                    expect(executeMarkCell(cells)).toHaveLength(3);
+                    expect(executeMarkCell(cells)).toHaveLength(config.minRequiredWinningFields);
                     expect(isWinningSequenceCell).toEqual(true);
                     expect(value).toEqual(symbol);
                 });
@@ -276,7 +267,7 @@ describe('TicTacToe', () => {
                         value = cell.value;
                     });
 
-                    expect(executeMarkCell(cells)).toHaveLength(3);
+                    expect(executeMarkCell(cells)).toHaveLength(config.minRequiredWinningFields);
                     expect(isWinningSequenceCell).toEqual(true);
                     expect(value).toEqual(symbol);
                 });
@@ -313,7 +304,7 @@ describe('TicTacToe', () => {
                         value = cell.value;
                     });
 
-                    expect(executeMarkCell(cells)).toHaveLength(3);
+                    expect(executeMarkCell(cells)).toHaveLength(config.minRequiredWinningFields);
                     expect(isWinningSequenceCell).toEqual(true);
                     expect(value).toEqual(symbol);
                 });
@@ -350,13 +341,35 @@ describe('TicTacToe', () => {
                         value = cell.value;
                     });
 
-                    expect(executeMarkCell(cells)).toHaveLength(3);
+                    expect(executeMarkCell(cells)).toHaveLength(config.minRequiredWinningFields);
                     expect(isWinningSequenceCell).toEqual(true);
                     expect(value).toEqual(symbol);
                 });
             });
+        });
 
 
+        it('getWinningSequence(): Does not return array of winning cells if given sequence "X-X-O"', () => {
+
+            const sequence = [
+                {
+                    x: 0,
+                    y: 0,
+                    value: "X"
+                },
+                {
+                    x: 0,
+                    y: 1,
+                    value: "X"
+                },
+                {
+                    x: 0,
+                    y: 2,
+                    value: "O"
+                }
+            ];
+
+            expect(TicTacToe.getWinningSequence(sequence, config.minRequiredWinningFields)).toEqual(null);
         });
     });
 });
