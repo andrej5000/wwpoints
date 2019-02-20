@@ -3,10 +3,16 @@
         "./src/**"
     ],
     "coverageDirectory": "./target/coverage",
+    "moduleNameMapper": {
+        ".*\\.scss": "identity-obj-proxy"
+    },
     "rootDir": "../..",
     "roots": [
         "./src",
         "./test"
+    ],
+    "setupFilesAfterEnv": [
+        "<rootDir>/test/config/enzymeJestSetup.js"
     ],
     "testPathIgnorePatterns": [
         "\\\\node_modules\\\\"

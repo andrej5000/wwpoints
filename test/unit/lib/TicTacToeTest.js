@@ -1,7 +1,7 @@
 import TicTacToe from '../../../src/libs/TicTacToe';
 
 
-describe('TicTacToe', () => {
+describe('TicTacToe Lib', () => {
 
     let config,
         gameRasterData,
@@ -50,7 +50,7 @@ describe('TicTacToe', () => {
         it('constructor(): Conditionally adjusts minRequiredWinningFields according to width and height', () => {
 
             const config = {
-                gameRasterHeight: 5, // dimension set is lower than minRequiredWinningFields
+                gameRasterHeight: 5, // dimension set is lower than minRequiredWinningFiel^ds
                 gameRasterWidth: 1, // dimension set is lower than minRequiredWinningFields
                 minRequiredWinningFields: 3
             };
@@ -62,7 +62,7 @@ describe('TicTacToe', () => {
         });
 
 
-        it('constructor(): Game raster data dimensions is as expected', () => {
+        it('constructor(): Game raster data dimensions are as expected', () => {
 
             expect(ticTacToe.gameRasterData.length).toEqual(config.gameRasterHeight * config.gameRasterWidth);
         });
