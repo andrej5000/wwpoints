@@ -93,6 +93,24 @@ class TicTacToeComponent extends React.Component {
                     Reset game
                 </button>
 
+
+                <input defaultValue={0}
+                       disabled={'disabled'}
+                       ref={(movesPlayer1) => {
+                           this.movesPlayer1 = movesPlayer1;
+                       }}
+                       type={'text'}
+                />
+
+                <input defaultValue={0}
+                       disabled={'disabled'}
+                       ref={(movesPlayer2) => {
+                           this.movesPlayer2 = movesPlayer2;
+                       }}
+                       type={'text'}
+                />
+
+
                 <GameRasterComponent activePlayerName={this.state.activePlayer.name}
                                      gameRasterData={this.game.getGameRasterData()}
                                      isGameFinished={this.state.isGameFinished}

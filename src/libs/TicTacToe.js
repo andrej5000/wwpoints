@@ -13,8 +13,9 @@ class TicTacToe {
 
     /**
      * @param config {object}
+     * @param callback {function}
      */
-    constructor(config) {
+    constructor(config, callback) {
 
         if (!config || typeof config !== 'object') {
             throw 'constructor(): Expecting JSON config object but was not given';
@@ -26,13 +27,16 @@ class TicTacToe {
             minRequiredWinningFields
         } = config;
 
+        let newMinRequiredWinningFields = (
+            gameRasterHeight < minRequiredWinningFields ||
+            gameRasterWidth < minRequiredWinningFields
+        )
+            ? Math.min(gameRasterHeight, gameRasterWidth)
+            : minRequiredWinningFields;
+
         this.config = {
             ...config,
-            minRequiredWinningFields: (
-                gameRasterHeight < minRequiredWinningFields || gameRasterWidth < minRequiredWinningFields
-            )
-                ? Math.min(gameRasterHeight, gameRasterWidth)
-                : minRequiredWinningFields
+            minRequiredWinningFields: newMinRequiredWinningFields
         };
 
         this.gameRasterData = this.createGameRasterData();
