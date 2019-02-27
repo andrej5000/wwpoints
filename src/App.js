@@ -31,12 +31,10 @@ class App extends React.Component {
                 players: [
                     {
                         name: 'Apollo',
-                        numberOfMoves: 0,
                         symbol: 'X'
                     },
                     {
                         name: 'Boreas',
-                        numberOfMoves: 0,
                         symbol: 'O'
                     }
                 ]
@@ -74,7 +72,7 @@ class App extends React.Component {
 
             <React.Fragment>
 
-                <button onClick={() => this.setState({isConfigWindowVisible: !this.state.isConfigWindowVisible})}>
+                <button onClick={::this.onSetupNewGame}>
                     Set up new game
                 </button>
 
@@ -107,6 +105,17 @@ class App extends React.Component {
                 ...this.state.config,
                 players
             }
+        });
+    }
+
+
+    onSetupNewGame() {
+
+        const cleanGameConf = App.getDefaultState();
+
+        this.setState({
+            ...cleanGameConf,
+            isConfigWindowVisible: !this.state.isConfigWindowVisible
         });
     }
 

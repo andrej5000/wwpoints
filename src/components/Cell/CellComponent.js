@@ -39,6 +39,10 @@ class CellComponent extends React.Component {
 
     onCellClick() {
 
+        if (this.props.cellValue) {
+            return;
+        }
+
         if (this.props.isActive) {
             this.props.onCellClickHandler();
         }

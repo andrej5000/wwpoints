@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {autoSelect} from '../../utils/utils';
+
 import styles from './ConfigComponent.scss';
 
 
@@ -32,8 +34,8 @@ class ConfigComponent extends React.Component {
                         <input defaultValue={player.name}
                                id={('playerName' + index)}
                                maxLength={this.props.config.maxPlayerNameLength}
-                               onFocus={(event) => ConfigComponent.autoSelect(event)}
-                               onMouseUp={(event) => ConfigComponent.autoSelect(event)}
+                               onFocus={(event) => autoSelect(event)}
+                               onMouseUp={(event) => autoSelect(event)}
                                onChange={(event) => {
                                    this.props.onSetPlayerConfigValue(
                                        index,
@@ -59,8 +61,8 @@ class ConfigComponent extends React.Component {
                                    'symbol',
                                    this.validateTextConfig(event.target)
                                )}
-                               onFocus={(event) => ConfigComponent.autoSelect(event)}
-                               onMouseUp={(event) => ConfigComponent.autoSelect(event)}
+                               onFocus={(event) => autoSelect(event)}
+                               onMouseUp={(event) => autoSelect(event)}
                                type={'text'}
                         />
                     </td>
@@ -88,8 +90,8 @@ class ConfigComponent extends React.Component {
                                    'gameRasterHeight',
                                    ConfigComponent.validateRasterDimension(event.target.value)
                                )}
-                               onFocus={(event) => ConfigComponent.autoSelect(event)}
-                               onMouseUp={(event) => ConfigComponent.autoSelect(event)}
+                               onFocus={(event) => autoSelect(event)}
+                               onMouseUp={(event) => autoSelect(event)}
                                type={'text'}
                                value={this.props.config.gameRasterHeight}
                         />
@@ -105,8 +107,8 @@ class ConfigComponent extends React.Component {
                                    'gameRasterWidth',
                                    ConfigComponent.validateRasterDimension(event.target.value)
                                )}
-                               onFocus={(event) => ConfigComponent.autoSelect(event)}
-                               onMouseUp={(event) => ConfigComponent.autoSelect(event)}
+                               onFocus={(event) => autoSelect(event)}
+                               onMouseUp={(event) => autoSelect(event)}
                                type={'text'}
                                value={this.props.config.gameRasterWidth}
                         />
@@ -176,13 +178,6 @@ class ConfigComponent extends React.Component {
     }
 
 
-    static autoSelect(event) {
-
-        // auto-select mobile Safari safe
-        event.target.setSelectionRange(0, event.target.value.length);
-    }
-
-
     render() {
 
         return (
@@ -201,7 +196,7 @@ class ConfigComponent extends React.Component {
                         <tr>
                             <td colSpan={4}>
                                 <button onClick={this.props.onCreateNewGame}>
-                                    Create Tic Tac Toe game
+                                    Start Tic Tac Toe game
                                 </button>
                             </td>
                         </tr>

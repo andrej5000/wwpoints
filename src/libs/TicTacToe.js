@@ -13,9 +13,8 @@ class TicTacToe {
 
     /**
      * @param config {object}
-     * @param callback {function}
      */
-    constructor(config, callback) {
+    constructor(config) {
 
         if (!config || typeof config !== 'object') {
             throw 'constructor(): Expecting JSON config object but was not given';
