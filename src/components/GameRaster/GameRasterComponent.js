@@ -38,11 +38,13 @@ class GameRasterComponent extends React.Component {
 
                 cells.push(
                     <td key={y + x}>
+
                         <CellComponent cellValue={cellValue}
                                        isActive={!isGameFinished}
                                        isWinningSequenceCell={cell.isWinningSequenceCell}
                                        onCellClickHandler={() => this.props.onCellClickHandler({...cell})}
                         />
+
                     </td>
                 );
             }

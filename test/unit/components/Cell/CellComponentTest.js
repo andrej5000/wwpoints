@@ -13,16 +13,17 @@ describe('<CellComponent />', () => {
 
     beforeEach(() => {
 
+        mockOnCellClick = jest.fn();
+
         props = {
             cellValue: false,
             isActive: true,
             isWinningSequenceCell: false,
-            onCellClickHandler: () => {}
+            onCellClickHandler: mockOnCellClick
         };
 
         wrapper = shallow(<CellComponent {...props}/>);
         cellDomElement = wrapper.find('div');
-        mockOnCellClick = jest.fn();
     });
 
 
@@ -33,12 +34,11 @@ describe('<CellComponent />', () => {
     });
 
 
-    it('renders an inactive, not clickable cell when respective prop is set', ()=> {
+    it('renders an inactive, not clickable cell', ()=> {
 
         props = {
             ...props,
-            isActive: false,
-            onCellClickHandler: mockOnCellClick
+            isActive: false
         };
         wrapper = shallow(<CellComponent {...props}/>);
         cellDomElement = wrapper.find('div');
@@ -63,22 +63,43 @@ describe('<CellComponent />', () => {
     });
 
 
-    it('when clicked, cell is marked with symbol of player', () => {
+    it('when clicked, it calls callback function', () => {
+
+        cellDomElement = wrapper.find('div');
+
+        cellDomElement.simulate('click');
+
+        expect(mockOnCellClick).toHaveBeenCalled();
+    });
+
+
+    it('renders a not clickable cell if cell has value already', ()=> {
 
         props = {
             ...props,
-            cellValue: 'O',
-            onCellClickHandler: mockOnCellClick
+            cellValue: false,
+            isActive: false
         };
         wrapper = shallow(<CellComponent {...props}/>);
         cellDomElement = wrapper.find('div');
 
         cellDomElement.simulate('click');
 
-        expect(mockOnCellClick).toHaveBeenCalled();
-        expect(cellDomElement.hasClass('gameCell')).toEqual(true);
-        expect(cellDomElement.hasClass('active')).toEqual(true);
-        expect(cellDomElement.html()).toEqual('<div class="gameCell active">O</div>');
+        expect(mockOnCellClick).not.toHaveBeenCalled();
     });
 
+
+    it('renders an already clicked-on cell with corresponding CSS class', ()=> {
+
+        props = {
+            ...props,
+            cellValue: 'X'
+        };
+        wrapper = shallow(<CellComponent {...props}/>);
+        cellDomElement = wrapper.find('div');
+
+        cellDomElement.simulate('click');
+
+        expect(cellDomElement.hasClass('active')).toEqual(true);
+    });
 });
