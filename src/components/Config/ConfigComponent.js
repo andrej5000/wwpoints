@@ -88,7 +88,7 @@ class ConfigComponent extends React.Component {
                         <input id={'gameRasterHeight'}
                                onChange={(event) => this.props.onSetConfigValue(
                                    'gameRasterHeight',
-                                   ConfigComponent.validateRasterDimension(event.target.value)
+                                   this.validateRasterDimension(event.target.value)
                                )}
                                onFocus={(event) => autoSelect(event)}
                                onMouseUp={(event) => autoSelect(event)}
@@ -105,7 +105,7 @@ class ConfigComponent extends React.Component {
                         <input id={'gameRasterWidth'}
                                onChange={(event) => this.props.onSetConfigValue(
                                    'gameRasterWidth',
-                                   ConfigComponent.validateRasterDimension(event.target.value)
+                                   this.validateRasterDimension(event.target.value)
                                )}
                                onFocus={(event) => autoSelect(event)}
                                onMouseUp={(event) => autoSelect(event)}
@@ -146,7 +146,7 @@ class ConfigComponent extends React.Component {
     }
 
 
-    static validateRasterDimension(value) {
+    validateRasterDimension(value) {
 
         if (isNaN(value)) {
             return 1;
