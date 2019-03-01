@@ -1,4 +1,5 @@
 
+.highscore,
 .playerMovesBox {
     border: 1px solid #ccc;
     font-size: 90%;
@@ -19,12 +20,55 @@
         border-bottom: 1px solid #ccc;
     }
 
-    td {
+    td,
+    th {
         border-right: 1px solid #ccc;
         padding: 10px;
     }
 
     .borderless {
         border: 0 none;
+    }
+}
+
+.highscoreWrap {
+    border: 0;
+    display: inline-block;
+    margin-top: 30px;
+    //max-height: 500px;
+    //overflow-y: auto;
+}
+
+.highscore {
+    margin-top: 0;
+    width: 362px;
+
+    thead {
+        border: 1px solid #ccc;
+
+        tr:first-child th {
+            background: lightseagreen;
+            border: 0 none;
+            padding: 30px;
+            text-align: center;
+        }
+
+        th {
+            background: #eee;
+            border-top: 0 none;
+            font-weight: bold;
+
+            &:first-child {
+                text-align: left;
+            }
+        }
+    }
+
+    tbody td {
+        text-align: center;
+
+        &:first-child {
+            text-align: left;
+        }
     }
 }

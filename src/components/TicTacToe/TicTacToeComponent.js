@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import GameRasterComponent from '../GameRaster';
 import TicTacToeGame from '../../libs/TicTacToe';
-import {formatTime} from '../../utils/utils';
+import {formatTime, getFormattedDate} from '../../utils/utils';
 
 import styles from './TicTacToeComponent.scss';
 
@@ -37,16 +37,28 @@ class TicTacToeComponent extends React.Component {
 
         return {
             activePlayer: this.props.gameConfig.players[0],
+            gameDuration: 0,
             gameEnd: null,
             gameStart: gameStart,
-            gameTime: 0,
             gameTimeRunning: true,
+            highscore: [],
             isGameFinished: false,
             numberOfMoves: {
                 player0: 0,
                 player1: 0
             }
         };
+    }
+
+
+    componentDidMount() {
+
+        this.getHighscore((response) => {
+
+            ::this.setState({
+                highscore: response
+            })
+        });
     }
 
 
@@ -74,6 +86,10 @@ class TicTacToeComponent extends React.Component {
 
         if (isGameFinished) {
             this.handleGameTimeStop();
+        }
+
+        if (winningCells) {
+            this.saveHighscore();
         }
 
         numberOfMoves['player' + currentPlayerIndex] = numberOfMoves['player' + currentPlayerIndex] + 1;
@@ -110,15 +126,116 @@ class TicTacToeComponent extends React.Component {
     }
 
 
-    renderGameDuration() {
+    renderGameDuration(gameDuration) {
 
-        const gameDuration = new Date(this.state.gameTime);
+        gameDuration = gameDuration || new Date(this.state.gameDuration);
 
         return formatTime(gameDuration);
     }
 
 
-    showGameTime() {
+    saveHighscore() {
+
+        fetch('http://localhost:3000/highscore', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                playerName: this.state.activePlayer.name,
+                gameDuration: this.state.gameDuration
+            })
+        })
+            .then(response => response.json())
+            .then(response => console.log(response))
+            .catch(error => {
+
+                console.error(error)
+            });
+    }
+
+
+    getHighscore(onSuccess) {
+
+        fetch('http://localhost:3000/highscore', {method: 'GET'})
+            .then((response) => {
+
+                return response.json();
+            })
+            .then(onSuccess)
+            .catch(error => {
+
+                console.error(error)
+            });
+    }
+
+
+    renderHighscore() {
+
+        if (!this.state.isGameFinished) {
+
+            return;
+        }
+
+        const highscore = this.state.highscore.sort(TicTacToeComponent.sortHighscoreByGameDuration);
+        const highscoreRows = [];
+        let highscoreTable;
+
+        highscore.map((entry) => {
+
+            highscoreRows.push(
+                <tr key={entry._id}>
+                    <td>{entry.playerName}</td>
+                    <td>{this.renderGameDuration(entry.gameDuration)}</td>
+                    <td>{getFormattedDate(entry.createdAt)}</td>
+                </tr>
+            );
+        });
+
+        highscoreTable = (
+            <div className={styles.highscoreWrap}>
+                <table className={styles.highscore}>
+                    <thead>
+                        <tr>
+                            <th colSpan={3}>TicTacToe High-Score</th>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Game Duration</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {highscoreRows}
+
+                    </tbody>
+                </table>
+            </div>
+        );
+
+        return highscoreTable;
+    }
+
+
+    static sortHighscoreByGameDuration(a, b)  {
+
+        if (a.gameDuration < b.gameDuration) {
+
+            return -1;
+        }
+
+        if (a.gameDuration > b.gameDuration) {
+
+            return 1;
+        }
+
+        return 0;
+    };
+
+
+    renderGameTime() {
 
         if (this.state.isGameFinished) {
 
@@ -173,7 +290,7 @@ class TicTacToeComponent extends React.Component {
                     </tr>
 
 
-                    {this.showGameTime()}
+                    {this.renderGameTime()}
 
 
                 </tbody>
@@ -190,8 +307,8 @@ class TicTacToeComponent extends React.Component {
             let gameTime = gameEnd - this.state.gameStart;
 
             this.setState({
+                gameDuration: gameTime,
                 gameEnd: gameEnd,
-                gameTime: gameTime,
                 gameTimeRunning: false
             });
         }
@@ -223,6 +340,9 @@ class TicTacToeComponent extends React.Component {
                                      isGameFinished={this.state.isGameFinished}
                                      onCellClickHandler={::this.onMarkCell}
                 />
+
+
+                {this.renderHighscore()}
 
             </React.Fragment>
         );
