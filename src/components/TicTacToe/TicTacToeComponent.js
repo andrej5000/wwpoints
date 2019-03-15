@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import GameRasterComponent from '../GameRaster';
+import HighscoreComponent from '../Highscore';
+import StatsComponent from '../Stats';
 import TicTacToeGame from '../../libs/TicTacToe';
-import {formatTime, getFormattedDate} from '../../utils/utils';
-
-import styles from './TicTacToeComponent.scss';
 
 
 class TicTacToeComponent extends React.Component {
@@ -41,6 +40,7 @@ class TicTacToeComponent extends React.Component {
             gameEnd: null,
             gameStart: gameStart,
             gameTimeRunning: true,
+            gameWinnerHighscoreId: '',
             highscore: [],
             isGameFinished: false,
             numberOfMoves: {
@@ -48,17 +48,6 @@ class TicTacToeComponent extends React.Component {
                 player1: 0
             }
         };
-    }
-
-
-    componentDidMount() {
-
-        this.getHighscore((response) => {
-
-            ::this.setState({
-                highscore: response
-            })
-        });
     }
 
 
@@ -84,20 +73,19 @@ class TicTacToeComponent extends React.Component {
         const remainingCells = this.game.getGameRasterData().filter((cell) => cell.value === false).length > 0;
         const isGameFinished = winningCells !== null || !remainingCells;
 
-        if (isGameFinished) {
-            this.handleGameTimeStop();
-        }
-
-        if (winningCells) {
-            this.saveHighscore();
-        }
-
         numberOfMoves['player' + currentPlayerIndex] = numberOfMoves['player' + currentPlayerIndex] + 1;
 
+        // Save current game state ...
         this.setState({
             activePlayer: !isGameFinished ? this.getNextPlayer(activePlayer.name) : activePlayer,
             isGameFinished: isGameFinished,
             ...numberOfMoves['player' + currentPlayerIndex]
+        }, () => {
+
+            // ... and in case the game has ended, execute the game's end accordingly.
+            if (isGameFinished) {
+                this.handleGameEnd(!!winningCells);
+            }
         });
     }
 
@@ -126,15 +114,25 @@ class TicTacToeComponent extends React.Component {
     }
 
 
-    renderGameDuration(gameDuration) {
+    handleGameEnd(isSetHighscore) {
 
-        gameDuration = gameDuration || new Date(this.state.gameDuration);
+        let gameEnd = Math.floor(Date.now());
+        let gameTime = gameEnd - this.state.gameStart;
 
-        return formatTime(gameDuration);
+        this.setState({
+            gameDuration: gameTime,
+            gameEnd: gameEnd
+        }, () => {
+            if (isSetHighscore) {
+                this.saveAndGetHighscore();
+            } else {
+                this.getHighscore();
+            }
+        });
     }
 
 
-    saveHighscore() {
+    saveAndGetHighscore() {
 
         fetch('http://localhost:3000/highscore', {
             method: 'POST',
@@ -148,170 +146,28 @@ class TicTacToeComponent extends React.Component {
             })
         })
             .then(response => response.json())
-            .then(response => console.log(response))
-            .catch(error => {
-
-                console.error(error)
-            });
+            .then(payload => this.setToState('gameWinnerHighscoreId', payload._id, this.getHighscore))
+            .catch(console.error);
     }
 
 
-    getHighscore(onSuccess) {
+    getHighscore() {
 
         fetch('http://localhost:3000/highscore', {method: 'GET'})
             .then((response) => {
 
                 return response.json();
             })
-            .then(onSuccess)
-            .catch(error => {
-
-                console.error(error)
-            });
+            .then(payload => this.setToState('highscore', payload))
+            .catch(console.error);
     }
 
 
-    renderHighscore() {
+    setToState(key, value, callback = () => {}) {
 
-        if (!this.state.isGameFinished) {
-
-            return;
-        }
-
-        const highscore = this.state.highscore.sort(TicTacToeComponent.sortHighscoreByGameDuration);
-        const highscoreRows = [];
-        let highscoreTable;
-
-        highscore.map((entry) => {
-
-            highscoreRows.push(
-                <tr key={entry._id}>
-                    <td>{entry.playerName}</td>
-                    <td>{this.renderGameDuration(entry.gameDuration)}</td>
-                    <td>{getFormattedDate(entry.createdAt)}</td>
-                </tr>
-            );
-        });
-
-        highscoreTable = (
-            <div className={styles.highscoreWrap}>
-                <table className={styles.highscore}>
-                    <thead>
-                        <tr>
-                            <th colSpan={3}>TicTacToe High-Score</th>
-                        </tr>
-                        <tr>
-                            <th>Name</th>
-                            <th>Game Duration</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        {highscoreRows}
-
-                    </tbody>
-                </table>
-            </div>
-        );
-
-        return highscoreTable;
-    }
-
-
-    static sortHighscoreByGameDuration(a, b)  {
-
-        if (a.gameDuration < b.gameDuration) {
-
-            return -1;
-        }
-
-        if (a.gameDuration > b.gameDuration) {
-
-            return 1;
-        }
-
-        return 0;
-    };
-
-
-    renderGameTime() {
-
-        if (this.state.isGameFinished) {
-
-            return (
-                <tr>
-                    <td colSpan={2}>
-                        <strong>Game time:</strong>
-                        <span>
-
-                            {::this.renderGameDuration()}
-
-                        </span>
-                    </td>
-                </tr>
-            );
-        }
-    }
-
-
-    renderNumberOfMovesBox() {
-
-        return (
-
-            <table className={styles.playerMovesBox}>
-                <tbody>
-                    <tr className={styles.borderless}>
-                        <td colSpan={2}>
-                            <strong>Number of moves:</strong>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span>
-                                {this.props.gameConfig.players[0].name}:
-                            </span>
-                            <input disabled={'disabled'}
-                                   maxLength={4}
-                                   type={'text'}
-                                   value={this.state.numberOfMoves.player0}
-                            />
-                        </td>
-                        <td>
-                            <span>
-                                {this.props.gameConfig.players[1].name}:
-                            </span>
-                            <input disabled={'disabled'}
-                                   maxLength={4}
-                                   type={'text'}
-                                   value={this.state.numberOfMoves.player1}
-                            />
-                        </td>
-                    </tr>
-
-
-                    {this.renderGameTime()}
-
-
-                </tbody>
-            </table>
-        );
-    }
-
-
-    handleGameTimeStop() {
-
-        if (this.state.gameTimeRunning) {
-
-            let gameEnd = Math.floor(Date.now());
-            let gameTime = gameEnd - this.state.gameStart;
-
-            this.setState({
-                gameDuration: gameTime,
-                gameEnd: gameEnd,
-                gameTimeRunning: false
-            });
-        }
+        this.setState({
+            [key]: value
+        }, callback);
     }
 
 
@@ -332,7 +188,11 @@ class TicTacToeComponent extends React.Component {
                 </button>
 
 
-                {this.renderNumberOfMovesBox()}
+                <StatsComponent gameDuration={this.state.gameDuration}
+                                isGameFinished={this.state.isGameFinished}
+                                numberOfMoves={this.state.numberOfMoves}
+                                players={this.props.gameConfig.players}
+                />
 
 
                 <GameRasterComponent activePlayerName={this.state.activePlayer.name}
@@ -342,7 +202,10 @@ class TicTacToeComponent extends React.Component {
                 />
 
 
-                {this.renderHighscore()}
+                <HighscoreComponent gameWinnerHighscoreId={this.state.gameWinnerHighscoreId}
+                                    highscore={this.state.highscore}
+                                    isGameFinished={this.state.isGameFinished}
+                />
 
             </React.Fragment>
         );

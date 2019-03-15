@@ -17,14 +17,16 @@ export const formatTime = (time) => {
 
     let s = Math.floor(time / 1000);
 
-    // Need ms? Uncomment next line!
-    //let ms = time % 1000;
+    // Need ms? Uncomment next line ...
+    let ms = time % 1000;
+    // ... and also the next line to print ms!
     //return ... + ':' + this.padTimeNumbers(ms, 3);
 
     return (
         padTimeNumbers(h, 2) + 'h ' +
         padTimeNumbers(m, 2) + 'm ' +
-        padTimeNumbers(s, 2) + 's '
+        padTimeNumbers(s, 2) + 's ' +
+        padTimeNumbers(ms, 3) + 'ms '
     );
 };
 

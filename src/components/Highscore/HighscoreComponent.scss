@@ -1,9 +1,18 @@
 
-.highscore,
-.playerMovesBox {
+
+.highscoreWrap {
+    border: 0;
+    display: inline-block;
+    margin-top: 30px;
+    //max-height: 500px;
+    //overflow-y: auto;
+}
+
+.highscore {
     border: 1px solid #ccc;
     font-size: 90%;
-    margin: 40px 20px 20px 20px;
+    margin: 0 20px 20px 20px;
+    width: 362px;
 
     input {
         background: none;
@@ -29,19 +38,6 @@
     .borderless {
         border: 0 none;
     }
-}
-
-.highscoreWrap {
-    border: 0;
-    display: inline-block;
-    margin-top: 30px;
-    //max-height: 500px;
-    //overflow-y: auto;
-}
-
-.highscore {
-    margin-top: 0;
-    width: 362px;
 
     thead {
         border: 1px solid #ccc;
@@ -62,13 +58,25 @@
                 text-align: left;
             }
         }
+
+        .title {
+            color: #fff;
+            font-size: 150%;
+        }
     }
 
-    tbody td {
-        text-align: center;
+    tbody {
 
-        &:first-child {
-            text-align: left;
+        td {
+            text-align: center;
+
+            &:first-child {
+                text-align: left;
+            }
+        }
+
+        tr.gameWinner td {
+            background: pink;
         }
     }
 }
