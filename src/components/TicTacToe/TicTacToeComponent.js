@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {saveHighscore, getHighscore} from '../../services/api/HighscoreApi';
 import GameRasterComponent from '../GameRaster';
 import HighscoreComponent from '../Highscore';
 import StatsComponent from '../Stats';
@@ -114,7 +115,7 @@ class TicTacToeComponent extends React.Component {
     }
 
 
-    handleGameEnd(isSetHighscore) {
+    handleGameEnd(isGameWinnerExists) {
 
         let gameEnd = Math.floor(Date.now());
         let gameTime = gameEnd - this.state.gameStart;
@@ -123,8 +124,8 @@ class TicTacToeComponent extends React.Component {
             gameDuration: gameTime,
             gameEnd: gameEnd
         }, () => {
-            if (isSetHighscore) {
-                this.saveAndGetHighscore();
+            if (isGameWinnerExists) {
+                this.saveHighscore();
             } else {
                 this.getHighscore();
             }
@@ -132,34 +133,38 @@ class TicTacToeComponent extends React.Component {
     }
 
 
-    saveAndGetHighscore() {
+    saveHighscore() {
 
-        fetch('http://localhost:3000/highscore', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                playerName: this.state.activePlayer.name,
-                gameDuration: this.state.gameDuration
-            })
-        })
-            .then(response => response.json())
-            .then(payload => this.setToState('gameWinnerHighscoreId', payload._id, this.getHighscore))
-            .catch(console.error);
+        if (!this.props.gameConfig.isHighscoreServiceEnabled) {
+
+            return;
+        }
+
+        const highscoreData = JSON.stringify({
+            playerName: this.state.activePlayer.name,
+            gameDuration: this.state.gameDuration
+        });
+
+        saveHighscore(highscoreData, (latestHighscore) => {
+
+            this.setState({
+                gameWinnerHighscoreId: latestHighscore._id
+            }, ::this.getHighscore);
+        });
     }
 
 
     getHighscore() {
 
-        fetch('http://localhost:3000/highscore', {method: 'GET'})
-            .then((response) => {
+        if (!this.props.gameConfig.isHighscoreServiceEnabled) {
 
-                return response.json();
-            })
-            .then(payload => this.setToState('highscore', payload))
-            .catch(console.error);
+            return;
+        }
+
+        getHighscore((highscore) => {
+
+            this.setToState('highscore', highscore)
+        });
     }
 
 
@@ -175,6 +180,22 @@ class TicTacToeComponent extends React.Component {
 
         this.game = this.createGame();
         this.setState(this.getDefaultState());
+    }
+
+
+    renderHighscore() {
+
+        if (!this.props.gameConfig.isHighscoreServiceEnabled) {
+
+            return;
+        }
+
+        return (
+            <HighscoreComponent gameWinnerHighscoreId={this.state.gameWinnerHighscoreId}
+                                highscore={this.state.highscore}
+                                isGameFinished={this.state.isGameFinished}
+            />
+        );
     }
 
 
@@ -202,10 +223,8 @@ class TicTacToeComponent extends React.Component {
                 />
 
 
-                <HighscoreComponent gameWinnerHighscoreId={this.state.gameWinnerHighscoreId}
-                                    highscore={this.state.highscore}
-                                    isGameFinished={this.state.isGameFinished}
-                />
+                {this.renderHighscore()}
+
 
             </React.Fragment>
         );

@@ -24,6 +24,7 @@ class App extends React.Component {
             config: {
                 gameRasterHeight: gameRasterHeight,
                 gameRasterWidth: gameRasterWidth,
+                isHighscoreServiceEnabled: true,
                 maxGameRasterDimension: 20,
                 maxPlayerNameLength: 16,
                 maxPlayerSymbolLength: 1,
