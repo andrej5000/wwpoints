@@ -63,8 +63,8 @@ module.exports = {
 
     plugins: [
         new HtmlWebPackPlugin({
-            template: './src/index.html',
-            filename: './index.html'
+            filename: './index.html',
+            template: './src/index.html'
         })
     ],
 

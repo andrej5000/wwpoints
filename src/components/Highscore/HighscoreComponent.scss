@@ -1,0 +1,82 @@
+
+
+.highscoreWrap {
+    border: 0;
+    display: inline-block;
+    margin-top: 30px;
+    //max-height: 500px;
+    //overflow-y: auto;
+}
+
+.highscore {
+    border: 1px solid #ccc;
+    font-size: 90%;
+    margin: 0 20px 20px 20px;
+    width: 362px;
+
+    input {
+        background: none;
+        border: 0 none;
+        font-size: 105%;
+        width: 60px;
+    }
+
+    strong {
+        margin-right: 10px;
+    }
+
+    tr {
+        border-bottom: 1px solid #ccc;
+    }
+
+    td,
+    th {
+        border-right: 1px solid #ccc;
+        padding: 10px;
+    }
+
+    .borderless {
+        border: 0 none;
+    }
+
+    thead {
+        border: 1px solid #ccc;
+
+        tr:first-child th {
+            background: lightseagreen;
+            border: 0 none;
+            padding: 30px;
+            text-align: center;
+        }
+
+        th {
+            background: #eee;
+            border-top: 0 none;
+            font-weight: bold;
+
+            &:first-child {
+                text-align: left;
+            }
+        }
+
+        .title {
+            color: #fff;
+            font-size: 150%;
+        }
+    }
+
+    tbody {
+
+        td {
+            text-align: center;
+
+            &:first-child {
+                text-align: left;
+            }
+        }
+
+        tr.gameWinner td {
+            background: pink;
+        }
+    }
+}

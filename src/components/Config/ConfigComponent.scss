@@ -3,5 +3,63 @@
 
     td {
         padding: 5px;
+        vertical-align: top;
+    }
+
+    td:nth-child(1),
+    td:nth-child(3) {
+        padding-top: 10px;
+    }
+
+    tr:nth-child(4) > td {
+        padding-bottom: 20px;
+    }
+
+    tr:last-child > td {
+        border-top: 1px solid #ccc;
+        padding: 20px 0;
+    }
+
+    label {
+        cursor: pointer;
+    }
+
+    .short {
+        text-align: center;
+        width: 40px;
+    }
+
+    small {
+        border-bottom: 1px solid #ccc;
+        display: block;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+    }
+
+    input {
+        margin-right: 20px;
+    }
+}
+
+.infoBox {
+    border: 1px solid #ccc;
+    margin-bottom: 30px;
+
+    td {
+        font-size: 80%;
+        font-style: italic;
+        padding: 3px 10px;
+        vertical-align: top;
+    }
+
+    tr:first-child td {
+        padding-top: 10px;
+    }
+    tr:last-child td {
+        padding-bottom: 10px;
+    }
+
+    strong {
+        text-decoration: underline;
     }
 }

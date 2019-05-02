@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {saveHighscore, getHighscore} from '../../services/api/HighscoreApi';
 import GameRasterComponent from '../GameRaster';
+import HighscoreComponent from '../Highscore';
+import StatsComponent from '../Stats';
 import TicTacToeGame from '../../libs/TicTacToe';
 
 
@@ -10,6 +13,7 @@ class TicTacToeComponent extends React.Component {
     static propTypes = {
         gameConfig: PropTypes.object.isRequired
     };
+
 
     /**
      * TicTacToe game
@@ -29,10 +33,21 @@ class TicTacToeComponent extends React.Component {
 
     getDefaultState() {
 
+        const gameStart = Math.floor(Date.now());
+
         return {
             activePlayer: this.props.gameConfig.players[0],
+            gameDuration: 0,
+            gameEnd: null,
+            gameStart: gameStart,
+            gameTimeRunning: true,
+            gameWinnerHighscoreId: '',
+            highscore: [],
             isGameFinished: false,
-            winningPlayerName: ''
+            numberOfMoves: {
+                player0: 0,
+                player1: 0
+            }
         };
     }
 
@@ -47,22 +62,31 @@ class TicTacToeComponent extends React.Component {
     }
 
 
-    onResetGame() {
-
-        this.game = this.createGame();
-        this.setState(this.getDefaultState());
-    }
-
-
     onMarkCell(cell) {
 
-        const winningCells = this.game.markCell(cell, this.state.activePlayer.symbol);
+        const {
+            activePlayer,
+            numberOfMoves
+        } = this.state;
+
+        const currentPlayerIndex = this.getCurrentPlayerIndex(activePlayer.name);
+        const winningCells = this.game.markCell(cell, activePlayer.symbol);
         const remainingCells = this.game.getGameRasterData().filter((cell) => cell.value === false).length > 0;
         const isGameFinished = winningCells !== null || !remainingCells;
 
+        numberOfMoves['player' + currentPlayerIndex] = numberOfMoves['player' + currentPlayerIndex] + 1;
+
+        // Save current game state ...
         this.setState({
-            activePlayer: !isGameFinished ? this.getNextPlayer(this.state.activePlayer.name) : this.state.activePlayer,
-            isGameFinished: isGameFinished
+            activePlayer: !isGameFinished ? this.getNextPlayer(activePlayer.name) : activePlayer,
+            isGameFinished: isGameFinished,
+            ...numberOfMoves['player' + currentPlayerIndex]
+        }, () => {
+
+            // ... and in case the game has ended, execute the game's end accordingly.
+            if (isGameFinished) {
+                this.handleGameEnd(!!winningCells);
+            }
         });
     }
 
@@ -76,11 +100,102 @@ class TicTacToeComponent extends React.Component {
     getNextPlayer(currentPlayerName) {
 
         const {players} = this.props.gameConfig;
-        const currentPlayer = this.getPlayerByName(currentPlayerName);
-        const currentPlayerIndex = players.indexOf(currentPlayer);
+        const currentPlayerIndex = this.getCurrentPlayerIndex(currentPlayerName);
         const newPlayerIndex = players[currentPlayerIndex + 1] ? currentPlayerIndex + 1 : 0;
 
         return players[newPlayerIndex];
+    }
+
+
+    getCurrentPlayerIndex(currentPlayerName) {
+
+        const currentPlayer = this.getPlayerByName(currentPlayerName);
+
+        return this.props.gameConfig.players.indexOf(currentPlayer);
+    }
+
+
+    handleGameEnd(isGameWinnerExists) {
+
+        let gameEnd = Math.floor(Date.now());
+        let gameTime = gameEnd - this.state.gameStart;
+
+        this.setState({
+            gameDuration: gameTime,
+            gameEnd: gameEnd
+        }, () => {
+            if (isGameWinnerExists) {
+                this.saveHighscore();
+            } else {
+                this.getHighscore();
+            }
+        });
+    }
+
+
+    saveHighscore() {
+
+        if (!this.props.gameConfig.isHighscoreServiceEnabled) {
+
+            return;
+        }
+
+        const highscoreData = JSON.stringify({
+            playerName: this.state.activePlayer.name,
+            gameDuration: this.state.gameDuration
+        });
+
+        saveHighscore(highscoreData, (latestHighscore) => {
+
+            this.setState({
+                gameWinnerHighscoreId: latestHighscore._id
+            }, ::this.getHighscore);
+        });
+    }
+
+
+    getHighscore() {
+
+        if (!this.props.gameConfig.isHighscoreServiceEnabled) {
+
+            return;
+        }
+
+        getHighscore((highscore) => {
+
+            this.setToState('highscore', highscore)
+        });
+    }
+
+
+    setToState(key, value, callback = () => {}) {
+
+        this.setState({
+            [key]: value
+        }, callback);
+    }
+
+
+    onResetGame() {
+
+        this.game = this.createGame();
+        this.setState(this.getDefaultState());
+    }
+
+
+    renderHighscore() {
+
+        if (!this.props.gameConfig.isHighscoreServiceEnabled) {
+
+            return;
+        }
+
+        return (
+            <HighscoreComponent gameWinnerHighscoreId={this.state.gameWinnerHighscoreId}
+                                highscore={this.state.highscore}
+                                isGameFinished={this.state.isGameFinished}
+            />
+        );
     }
 
 
@@ -93,11 +208,23 @@ class TicTacToeComponent extends React.Component {
                     Reset game
                 </button>
 
+
+                <StatsComponent gameDuration={this.state.gameDuration}
+                                isGameFinished={this.state.isGameFinished}
+                                numberOfMoves={this.state.numberOfMoves}
+                                players={this.props.gameConfig.players}
+                />
+
+
                 <GameRasterComponent activePlayerName={this.state.activePlayer.name}
                                      gameRasterData={this.game.getGameRasterData()}
                                      isGameFinished={this.state.isGameFinished}
                                      onCellClickHandler={::this.onMarkCell}
                 />
+
+
+                {this.renderHighscore()}
+
 
             </React.Fragment>
         );

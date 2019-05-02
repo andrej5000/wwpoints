@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 
 import styles from './CellComponent.scss';
 
@@ -39,6 +39,10 @@ class CellComponent extends React.Component {
 
     onCellClick() {
 
+        if (this.props.cellValue) {
+            return;
+        }
+
         if (this.props.isActive) {
             this.props.onCellClickHandler();
         }
@@ -48,11 +52,11 @@ class CellComponent extends React.Component {
     render() {
 
         return (
-            <td className={this.setCssClasses()}
+            <div className={this.setCssClasses()}
                 onClick={::this.onCellClick}
             >
                 {this.props.cellValue}
-            </td>
+            </div>
         );
     }
 }

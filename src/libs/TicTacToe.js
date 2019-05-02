@@ -26,11 +26,16 @@ class TicTacToe {
             minRequiredWinningFields
         } = config;
 
+        let newMinRequiredWinningFields = (
+            gameRasterHeight < minRequiredWinningFields ||
+            gameRasterWidth < minRequiredWinningFields
+        )
+            ? Math.min(gameRasterHeight, gameRasterWidth)
+            : minRequiredWinningFields;
+
         this.config = {
             ...config,
-            minRequiredWinningFields: (gameRasterHeight || gameRasterWidth) < minRequiredWinningFields
-                ? Math.min(gameRasterHeight, gameRasterWidth)
-                : minRequiredWinningFields
+            minRequiredWinningFields: newMinRequiredWinningFields
         };
 
         this.gameRasterData = this.createGameRasterData();

@@ -24,6 +24,10 @@ class App extends React.Component {
             config: {
                 gameRasterHeight: gameRasterHeight,
                 gameRasterWidth: gameRasterWidth,
+                isHighscoreServiceEnabled: true,
+                maxGameRasterDimension: 20,
+                maxPlayerNameLength: 16,
+                maxPlayerSymbolLength: 1,
                 minRequiredWinningFields: 3,
                 players: [
                     {
@@ -41,20 +45,6 @@ class App extends React.Component {
     }
 
 
-    render() {
-
-        return (
-            <React.Fragment>
-
-                {this.renderGameConfig()}
-
-                {this.renderTicTacToe()}
-
-            </React.Fragment>
-        );
-    }
-
-
     renderGameConfig() {
 
         if (!this.state.isConfigWindowVisible) {
@@ -63,11 +53,10 @@ class App extends React.Component {
         }
 
         return (
-            <ConfigComponent gameRasterHeight={this.state.config.gameRasterHeight}
-                             gameRasterWidth={this.state.config.gameRasterWidth}
+            <ConfigComponent config={this.state.config}
                              onCreateNewGame={() => ::this.setState({isConfigWindowVisible: false})}
-                             onSetGameRasterHeight={(gameRasterHeight) => ::this.setConfigValue({gameRasterHeight})}
-                             onSetGameRasterWidth={(gameRasterWidth) => ::this.setConfigValue({gameRasterWidth})}
+                             onSetConfigValue={::this.setConfigValue}
+                             onSetPlayerConfigValue={::this.setPlayerConfigValue}
             />
         );
     }
@@ -84,7 +73,7 @@ class App extends React.Component {
 
             <React.Fragment>
 
-                <button onClick={() => this.setState({isConfigWindowVisible: !this.state.isConfigWindowVisible})}>
+                <button onClick={::this.onSetupNewGame}>
                     Set up new game
                 </button>
 
@@ -96,14 +85,53 @@ class App extends React.Component {
     }
 
 
-    setConfigValue(newConfigData) {
+    setConfigValue(configKey, configValue) {
+
+        const {config} = this.state;
+        config[configKey] = configValue;
+
+        this.setState({
+            config: config
+        });
+    }
+
+
+    setPlayerConfigValue(position, configKey, configValue) {
+
+        const {players} = this.state.config;
+        players[position][configKey] = configValue;
 
         this.setState({
             config: {
                 ...this.state.config,
-                ...newConfigData
+                players
             }
         });
+    }
+
+
+    onSetupNewGame() {
+
+        const cleanGameConf = App.getDefaultState();
+
+        this.setState({
+            ...cleanGameConf,
+            isConfigWindowVisible: !this.state.isConfigWindowVisible
+        });
+    }
+
+
+    render() {
+
+        return (
+            <React.Fragment>
+
+                {this.renderGameConfig()}
+
+                {this.renderTicTacToe()}
+
+            </React.Fragment>
+        );
     }
 }
 
